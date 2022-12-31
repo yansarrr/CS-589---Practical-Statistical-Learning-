@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2022-12-12" />
+  <title>UBCF and IBCF</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Project4</h1>
+<p class="date">2022-12-12</p>
+</header>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">
+
+</div>
+<section id="System-1---Recommendations-by-Genre"
+class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+data-mime-type="text/markdown">
+<h1>System 1 - Recommendations by Genre<a
+href="#System-1---Recommendations-by-Genre"
+class="anchor-link">¶</a></h1>
+<p>Group Members: rpberry2, sarahxy2, sauravv2</p>
+<p>We created three different algorithms for recommending movies by
+genre:</p>
+<ol>
+<li>Highest Rated</li>
+<li>Highest Rated and Recently Created</li>
+<li>Most Popular</li>
+</ol>
+<p>We will detail each of the three algorithms further below. All
+algorithms went through the same data loading and preprocessing
+steps.</p>
+</section>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">
+
+</div>
+<section id="Data-Loading"
+class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+data-mime-type="text/markdown">
+<h1>Data Loading<a href="#Data-Loading" class="anchor-link">¶</a></h1>
+<p>Load data to prepare for preprocessing.</p>
+</section>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">
+In [1]:
+</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor"
+data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-python">
+<pre><code>import pandas as pd
+
+
+genre_list = [&quot;Action&quot;, &quot;Adventure&quot;, &quot;Animation&quot;,
+               &quot;Children&#39;s&quot;, &quot;Comedy&quot;, &quot;Crime&quot;,
+               &quot;Documentary&quot;, &quot;Drama&quot;, &quot;Fantasy&quot;,
+               &quot;Film-Noir&quot;, &quot;Horror&quot;, &quot;Musical&quot;,
+               &quot;Mystery&quot;, &quot;Romance&quot;, &quot;Sci-Fi&quot;,
+               &quot;Thriller&quot;, &quot;War&quot;, &quot;Western&quot;]
+
+def load_data():
+    movies = pd.read_csv(&#39;movies.dat&#39;, sep=&#39;::&#39;, names=[&#39;MovieID&#39;, &#39;Title&#39;, &#39;Genre&#39;, &#39;Year&#39;],
+                            encoding=&#39;latin-1&#39;)
+    ratings = pd.read_csv(&#39;ratings.dat&#39;, sep=&#39;::&#39;,
+                             names=[&#39;UserID&#39;, &#39;MovieID&#39;, &#39;Rating&#39;, &#39;Timestamp&#39;])
+    return movies, ratings</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">
+
+</div>
+<section id="Data-Preprocessing"
+class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+data-mime-type="text/markdown">
+<h1>Data Preprocessing<a href="#Data-Preprocessing"
+class="anchor-link">¶</a></h1>
+<p>For all algorithms we undergo the same preprocessing steps, however,
+algorithm 2 has an additional step to remove movies produced after a
+certain year.</p>
+<p>Our steps are as follows:</p>
+<ul>
+<li>Remove year from title and assign to own column</li>
+<li>Remove movies that were reviewed less than 30 times, because that is
+not a significant sample size</li>
+<li>(Algo 2 only) - remove movies created after 1995</li>
+<li>Assign averages for ratings for each movie</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">
+In [2]:
+</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor"
+data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-python">
+<pre><code>def preprocess(movies, ratings, year_filter=None):
+    # assign year
+    movies[&#39;Year&#39;] = movies[&#39;Title&#39;].str[-5:-1]
+    movies[&#39;Year&#39;] = movies[&#39;Year&#39;].str.extract(&#39;(\d+)&#39;, expand=False)
+    movies = movies[movies[&#39;Year&#39;].notna()]
+    movies[&#39;Year&#39;] = movies[&#39;Year&#39;].astype(int)
+
+    # remove year from title
+    movies[&#39;Title&#39;] = movies[&#39;Title&#39;].str[:-6]
+
+    # remove movies where there are less than 30 total reviews
+    ratings_grouped = ratings.groupby(&#39;MovieID&#39;, as_index=False).size()
+    movies = movies.join(ratings_grouped.set_index(&#39;MovieID&#39;), on=&#39;MovieID&#39;)
+    movies = movies.rename(columns={&#39;size&#39;: &#39;RatingCount&#39;})
+    size1 = len(movies)
+    movies = movies[movies[&#39;RatingCount&#39;] &gt;= 30]
+    size2 = len(movies)
+    print(&#39;\n\nRemoved&#39;, size1-size2, &#39;movies because there aren\&#39;t enough reviews\n\n&#39;)
+
+    # remove movies from before a certain year
+    if year_filter:
+        movies = movies[movies[&#39;Year&#39;] &gt;= year_filter]
+
+    # assign average ratings
+    ratings_avg = ratings.groupby(&#39;MovieID&#39;, as_index=False)[&#39;Rating&#39;].mean()
+    movies = movies.join(ratings_avg.set_index(&#39;MovieID&#39;), on=&#39;MovieID&#39;)
+    movies = movies.rename(columns={&#39;Rating&#39;: &#39;AvgRating&#39;})
+
+    return movies</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">
+
+</div>
+<section id="Data-Analysis"
+class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+data-mime-type="text/markdown">
+<h1>Data Analysis<a href="#Data-Analysis" class="anchor-link">¶</a></h1>
+<p>In this step, we identify the top n movies based on a certain
+category.</p>
+</section>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">
+In [3]:
+</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor"
+data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-python">
+<pre><code>def get_top_by_genre(movies, category, top_n):
+    top_dict = {}
+
+    for genre in genre_list:
+        genre_movies = movies[movies[&#39;Genre&#39;].str.contains(genre)]
+        genre_top = genre_movies.sort_values(by=[category], ascending=[False]).head(top_n)
+        top_dict[genre] = genre_top.to_dict(&#39;records&#39;)
+
+    return top_dict</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">
+
+</div>
+<section id="Data-Display"
+class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+data-mime-type="text/markdown">
+<h1>Data Display<a href="#Data-Display" class="anchor-link">¶</a></h1>
+<p>This step helps to display recommendation results more clearly.</p>
+</section>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">
+In [4]:
+</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor"
+data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-python">
+<pre><code>def display_top_results(top_dict, title=None):
+    print(title)
+    for key, value in top_dict.items():
+        print(&#39;Genre:&#39;, key)
+        for movie in value:
+            print(&#39;Movie:&#39;, movie)
+        print(&#39;\n&#39;)
+    print(&#39;\n&#39;)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">
+
+</div>
+<section id="Testing-Algorithm-1-(Highest-Rated)"
+class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+data-mime-type="text/markdown">
+<h1>Testing Algorithm 1 (Highest Rated)<a
+href="#Testing-Algorithm-1-(Highest-Rated)"
+class="anchor-link">¶</a></h1>
+<p>Highest Rated refers to the overall highest average rated movies per
+genre. To get this metric, we take the mean rating across all reviews
+for each movie that survived preprocessing.</p>
+<p>Notice how the AvgRating dictates the order of results.</p>
+</section>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">
+In [5]:
+</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor"
+data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-python">
+<pre><code># Get the top 5 movies per genre by average rating
+movies_df, ratings_df = load_data()
+
+cleaned_movies_df = preprocess(movies_df, ratings_df)
+genre_dict = get_top_by_genre(cleaned_movies_df, &#39;AvgRating&#39;, top_n=5)
+display_top_results(genre_dict, &#39;\n\nEvaluating movies by average rating\n&#39;)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">
+
+</div>
+<div class="jp-RenderedText jp-OutputArea-output"
+data-mime-type="application/vnd.jupyter.stderr">
+<pre><code>/tmp/ipykernel_41716/3701943215.py:12: ParserWarning: Falling back to the &#39;python&#39; engine because the &#39;c&#39; engine does not support regex separators (separators &gt; 1 char and different from &#39;\s+&#39; are interpreted as regex); you can avoid this warning by specifying engine=&#39;python&#39;.
+  movies = pd.read_csv(&#39;movies.dat&#39;, sep=&#39;::&#39;, names=[&#39;MovieID&#39;, &#39;Title&#39;, &#39;Genre&#39;, &#39;Year&#39;],
+/tmp/ipykernel_41716/3701943215.py:14: ParserWarning: Falling back to the &#39;python&#39; engine because the &#39;c&#39; engine does not support regex separators (separators &gt; 1 char and different from &#39;\s+&#39; are interpreted as regex); you can avoid this warning by specifying engine=&#39;python&#39;.
+  ratings = pd.read_csv(&#39;ratings.dat&#39;, sep=&#39;::&#39;,</code></pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">
+
+</div>
+<div class="jp-RenderedText jp-OutputArea-output"
+data-mime-type="text/plain">
+<pre><code>
+Removed 1047 movies because there aren&#39;t enough reviews
+
+
+
+
+Evaluating movies by average rating
+
+Genre: Action
+Movie: {&#39;MovieID&#39;: 2905, &#39;Title&#39;: &#39;Sanjuro &#39;, &#39;Genre&#39;: &#39;Action|Adventure&#39;, &#39;Year&#39;: 1962, &#39;RatingCount&#39;: 69.0, &#39;AvgRating&#39;: 4.608695652173913}
+Movie: {&#39;MovieID&#39;: 2019, &#39;Title&#39;: &#39;Seven Samurai (The Magnificent Seven) (Shichinin no samurai) &#39;, &#39;Genre&#39;: &#39;Action|Drama&#39;, &#39;Year&#39;: 1954, &#39;RatingCount&#39;: 628.0, &#39;AvgRating&#39;: 4.560509554140127}
+Movie: {&#39;MovieID&#39;: 858, &#39;Title&#39;: &#39;Godfather, The &#39;, &#39;Genre&#39;: &#39;Action|Crime|Drama&#39;, &#39;Year&#39;: 1972, &#39;RatingCount&#39;: 2223.0, &#39;AvgRating&#39;: 4.524966261808367}
+Movie: {&#39;MovieID&#39;: 1198, &#39;Title&#39;: &#39;Raiders of the Lost Ark &#39;, &#39;Genre&#39;: &#39;Action|Adventure&#39;, &#39;Year&#39;: 1981, &#39;RatingCount&#39;: 2514.0, &#39;AvgRating&#39;: 4.477724741447892}
+Movie: {&#39;MovieID&#39;: 260, &#39;Title&#39;: &#39;Star Wars: Episode IV - A New Hope &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Fantasy|Sci-Fi&#39;, &#39;Year&#39;: 1977, &#39;RatingCount&#39;: 2991.0, &#39;AvgRating&#39;: 4.453694416583082}
+
+
+Genre: Adventure
+Movie: {&#39;MovieID&#39;: 2905, &#39;Title&#39;: &#39;Sanjuro &#39;, &#39;Genre&#39;: &#39;Action|Adventure&#39;, &#39;Year&#39;: 1962, &#39;RatingCount&#39;: 69.0, &#39;AvgRating&#39;: 4.608695652173913}
+Movie: {&#39;MovieID&#39;: 1198, &#39;Title&#39;: &#39;Raiders of the Lost Ark &#39;, &#39;Genre&#39;: &#39;Action|Adventure&#39;, &#39;Year&#39;: 1981, &#39;RatingCount&#39;: 2514.0, &#39;AvgRating&#39;: 4.477724741447892}
+Movie: {&#39;MovieID&#39;: 260, &#39;Title&#39;: &#39;Star Wars: Episode IV - A New Hope &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Fantasy|Sci-Fi&#39;, &#39;Year&#39;: 1977, &#39;RatingCount&#39;: 2991.0, &#39;AvgRating&#39;: 4.453694416583082}
+Movie: {&#39;MovieID&#39;: 1204, &#39;Title&#39;: &#39;Lawrence of Arabia &#39;, &#39;Genre&#39;: &#39;Adventure|War&#39;, &#39;Year&#39;: 1962, &#39;RatingCount&#39;: 831.0, &#39;AvgRating&#39;: 4.401925391095066}
+Movie: {&#39;MovieID&#39;: 1262, &#39;Title&#39;: &#39;Great Escape, The &#39;, &#39;Genre&#39;: &#39;Adventure|War&#39;, &#39;Year&#39;: 1963, &#39;RatingCount&#39;: 696.0, &#39;AvgRating&#39;: 4.376436781609195}
+
+
+Genre: Animation
+Movie: {&#39;MovieID&#39;: 745, &#39;Title&#39;: &#39;Close Shave, A &#39;, &#39;Genre&#39;: &#39;Animation|Comedy|Thriller&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 657.0, &#39;AvgRating&#39;: 4.52054794520548}
+Movie: {&#39;MovieID&#39;: 1148, &#39;Title&#39;: &#39;Wrong Trousers, The &#39;, &#39;Genre&#39;: &#39;Animation|Comedy&#39;, &#39;Year&#39;: 1993, &#39;RatingCount&#39;: 882.0, &#39;AvgRating&#39;: 4.507936507936508}
+Movie: {&#39;MovieID&#39;: 720, &#39;Title&#39;: &#39;Wallace &amp; Gromit: The Best of Aardman Animation &#39;, &#39;Genre&#39;: &#39;Animation&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 438.0, &#39;AvgRating&#39;: 4.426940639269406}
+Movie: {&#39;MovieID&#39;: 1223, &#39;Title&#39;: &#39;Grand Day Out, A &#39;, &#39;Genre&#39;: &#39;Animation|Comedy&#39;, &#39;Year&#39;: 1992, &#39;RatingCount&#39;: 473.0, &#39;AvgRating&#39;: 4.361522198731501}
+Movie: {&#39;MovieID&#39;: 3429, &#39;Title&#39;: &#39;Creature Comforts &#39;, &#39;Genre&#39;: &#39;Animation|Comedy&#39;, &#39;Year&#39;: 1990, &#39;RatingCount&#39;: 274.0, &#39;AvgRating&#39;: 4.335766423357664}
+
+
+Genre: Children&#39;s
+Movie: {&#39;MovieID&#39;: 919, &#39;Title&#39;: &#39;Wizard of Oz, The &#39;, &#39;Genre&#39;: &quot;Adventure|Children&#39;s|Drama|Musical&quot;, &#39;Year&#39;: 1939, &#39;RatingCount&#39;: 1718.0, &#39;AvgRating&#39;: 4.247962747380675}
+Movie: {&#39;MovieID&#39;: 3114, &#39;Title&#39;: &#39;Toy Story 2 &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Comedy&quot;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 1585.0, &#39;AvgRating&#39;: 4.218927444794953}
+Movie: {&#39;MovieID&#39;: 1, &#39;Title&#39;: &#39;Toy Story &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Comedy&quot;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 2077.0, &#39;AvgRating&#39;: 4.146846413095811}
+Movie: {&#39;MovieID&#39;: 2761, &#39;Title&#39;: &#39;Iron Giant, The &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s&quot;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 674.0, &#39;AvgRating&#39;: 4.0474777448071215}
+Movie: {&#39;MovieID&#39;: 1023, &#39;Title&#39;: &#39;Winnie the Pooh and the Blustery Day &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s&quot;, &#39;Year&#39;: 1968, &#39;RatingCount&#39;: 221.0, &#39;AvgRating&#39;: 3.986425339366516}
+
+
+Genre: Comedy
+Movie: {&#39;MovieID&#39;: 745, &#39;Title&#39;: &#39;Close Shave, A &#39;, &#39;Genre&#39;: &#39;Animation|Comedy|Thriller&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 657.0, &#39;AvgRating&#39;: 4.52054794520548}
+Movie: {&#39;MovieID&#39;: 1148, &#39;Title&#39;: &#39;Wrong Trousers, The &#39;, &#39;Genre&#39;: &#39;Animation|Comedy&#39;, &#39;Year&#39;: 1993, &#39;RatingCount&#39;: 882.0, &#39;AvgRating&#39;: 4.507936507936508}
+Movie: {&#39;MovieID&#39;: 3030, &#39;Title&#39;: &#39;Yojimbo &#39;, &#39;Genre&#39;: &#39;Comedy|Drama|Western&#39;, &#39;Year&#39;: 1961, &#39;RatingCount&#39;: 215.0, &#39;AvgRating&#39;: 4.404651162790698}
+Movie: {&#39;MovieID&#39;: 3307, &#39;Title&#39;: &#39;City Lights &#39;, &#39;Genre&#39;: &#39;Comedy|Drama|Romance&#39;, &#39;Year&#39;: 1931, &#39;RatingCount&#39;: 271.0, &#39;AvgRating&#39;: 4.387453874538745}
+Movie: {&#39;MovieID&#39;: 3022, &#39;Title&#39;: &#39;General, The &#39;, &#39;Genre&#39;: &#39;Comedy&#39;, &#39;Year&#39;: 1927, &#39;RatingCount&#39;: 206.0, &#39;AvgRating&#39;: 4.368932038834951}
+
+
+Genre: Crime
+Movie: {&#39;MovieID&#39;: 858, &#39;Title&#39;: &#39;Godfather, The &#39;, &#39;Genre&#39;: &#39;Action|Crime|Drama&#39;, &#39;Year&#39;: 1972, &#39;RatingCount&#39;: 2223.0, &#39;AvgRating&#39;: 4.524966261808367}
+Movie: {&#39;MovieID&#39;: 50, &#39;Title&#39;: &#39;Usual Suspects, The &#39;, &#39;Genre&#39;: &#39;Crime|Thriller&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 1783.0, &#39;AvgRating&#39;: 4.517106001121705}
+Movie: {&#39;MovieID&#39;: 3435, &#39;Title&#39;: &#39;Double Indemnity &#39;, &#39;Genre&#39;: &#39;Crime|Film-Noir&#39;, &#39;Year&#39;: 1944, &#39;RatingCount&#39;: 551.0, &#39;AvgRating&#39;: 4.415607985480944}
+Movie: {&#39;MovieID&#39;: 1221, &#39;Title&#39;: &#39;Godfather: Part II, The &#39;, &#39;Genre&#39;: &#39;Action|Crime|Drama&#39;, &#39;Year&#39;: 1974, &#39;RatingCount&#39;: 1692.0, &#39;AvgRating&#39;: 4.357565011820331}
+Movie: {&#39;MovieID&#39;: 1234, &#39;Title&#39;: &#39;Sting, The &#39;, &#39;Genre&#39;: &#39;Comedy|Crime&#39;, &#39;Year&#39;: 1973, &#39;RatingCount&#39;: 1049.0, &#39;AvgRating&#39;: 4.320305052430887}
+
+
+Genre: Documentary
+Movie: {&#39;MovieID&#39;: 1147, &#39;Title&#39;: &#39;When We Were Kings &#39;, &#39;Genre&#39;: &#39;Documentary&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 277.0, &#39;AvgRating&#39;: 4.32129963898917}
+Movie: {&#39;MovieID&#39;: 3679, &#39;Title&#39;: &#39;Decline of Western Civilization, The &#39;, &#39;Genre&#39;: &#39;Documentary&#39;, &#39;Year&#39;: 1981, &#39;RatingCount&#39;: 62.0, &#39;AvgRating&#39;: 4.274193548387097}
+Movie: {&#39;MovieID&#39;: 363, &#39;Title&#39;: &#39;Wonderful, Horrible Life of Leni Riefenstahl, The (Die Macht der Bilder) &#39;, &#39;Genre&#39;: &#39;Documentary&#39;, &#39;Year&#39;: 1993, &#39;RatingCount&#39;: 62.0, &#39;AvgRating&#39;: 4.258064516129032}
+Movie: {&#39;MovieID&#39;: 1189, &#39;Title&#39;: &#39;Thin Blue Line, The &#39;, &#39;Genre&#39;: &#39;Documentary&#39;, &#39;Year&#39;: 1988, &#39;RatingCount&#39;: 269.0, &#39;AvgRating&#39;: 4.25278810408922}
+Movie: {&#39;MovieID&#39;: 2859, &#39;Title&#39;: &#39;Stop Making Sense &#39;, &#39;Genre&#39;: &#39;Documentary&#39;, &#39;Year&#39;: 1984, &#39;RatingCount&#39;: 239.0, &#39;AvgRating&#39;: 4.2343096234309625}
+
+
+Genre: Drama
+Movie: {&#39;MovieID&#39;: 2019, &#39;Title&#39;: &#39;Seven Samurai (The Magnificent Seven) (Shichinin no samurai) &#39;, &#39;Genre&#39;: &#39;Action|Drama&#39;, &#39;Year&#39;: 1954, &#39;RatingCount&#39;: 628.0, &#39;AvgRating&#39;: 4.560509554140127}
+Movie: {&#39;MovieID&#39;: 318, &#39;Title&#39;: &#39;Shawshank Redemption, The &#39;, &#39;Genre&#39;: &#39;Drama&#39;, &#39;Year&#39;: 1994, &#39;RatingCount&#39;: 2227.0, &#39;AvgRating&#39;: 4.554557700942973}
+Movie: {&#39;MovieID&#39;: 858, &#39;Title&#39;: &#39;Godfather, The &#39;, &#39;Genre&#39;: &#39;Action|Crime|Drama&#39;, &#39;Year&#39;: 1972, &#39;RatingCount&#39;: 2223.0, &#39;AvgRating&#39;: 4.524966261808367}
+Movie: {&#39;MovieID&#39;: 527, &#39;Title&#39;: &quot;Schindler&#39;s List &quot;, &#39;Genre&#39;: &#39;Drama|War&#39;, &#39;Year&#39;: 1993, &#39;RatingCount&#39;: 2304.0, &#39;AvgRating&#39;: 4.510416666666667}
+Movie: {&#39;MovieID&#39;: 1178, &#39;Title&#39;: &#39;Paths of Glory &#39;, &#39;Genre&#39;: &#39;Drama|War&#39;, &#39;Year&#39;: 1957, &#39;RatingCount&#39;: 230.0, &#39;AvgRating&#39;: 4.473913043478261}
+
+
+Genre: Fantasy
+Movie: {&#39;MovieID&#39;: 260, &#39;Title&#39;: &#39;Star Wars: Episode IV - A New Hope &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Fantasy|Sci-Fi&#39;, &#39;Year&#39;: 1977, &#39;RatingCount&#39;: 2991.0, &#39;AvgRating&#39;: 4.453694416583082}
+Movie: {&#39;MovieID&#39;: 1097, &#39;Title&#39;: &#39;E.T. the Extra-Terrestrial &#39;, &#39;Genre&#39;: &quot;Children&#39;s|Drama|Fantasy|Sci-Fi&quot;, &#39;Year&#39;: 1982, &#39;RatingCount&#39;: 2269.0, &#39;AvgRating&#39;: 3.9651828999559275}
+Movie: {&#39;MovieID&#39;: 247, &#39;Title&#39;: &#39;Heavenly Creatures &#39;, &#39;Genre&#39;: &#39;Drama|Fantasy|Romance|Thriller&#39;, &#39;Year&#39;: 1994, &#39;RatingCount&#39;: 477.0, &#39;AvgRating&#39;: 3.8658280922431865}
+Movie: {&#39;MovieID&#39;: 1073, &#39;Title&#39;: &#39;Willy Wonka and the Chocolate Factory &#39;, &#39;Genre&#39;: &quot;Adventure|Children&#39;s|Comedy|Fantasy&quot;, &#39;Year&#39;: 1971, &#39;RatingCount&#39;: 1313.0, &#39;AvgRating&#39;: 3.8613861386138613}
+Movie: {&#39;MovieID&#39;: 2797, &#39;Title&#39;: &#39;Big &#39;, &#39;Genre&#39;: &#39;Comedy|Fantasy&#39;, &#39;Year&#39;: 1988, &#39;RatingCount&#39;: 1491.0, &#39;AvgRating&#39;: 3.8558014755197854}
+
+
+Genre: Film-Noir
+Movie: {&#39;MovieID&#39;: 922, &#39;Title&#39;: &#39;Sunset Blvd. (a.k.a. Sunset Boulevard) &#39;, &#39;Genre&#39;: &#39;Film-Noir&#39;, &#39;Year&#39;: 1950, &#39;RatingCount&#39;: 470.0, &#39;AvgRating&#39;: 4.491489361702127}
+Movie: {&#39;MovieID&#39;: 3435, &#39;Title&#39;: &#39;Double Indemnity &#39;, &#39;Genre&#39;: &#39;Crime|Film-Noir&#39;, &#39;Year&#39;: 1944, &#39;RatingCount&#39;: 551.0, &#39;AvgRating&#39;: 4.415607985480944}
+Movie: {&#39;MovieID&#39;: 913, &#39;Title&#39;: &#39;Maltese Falcon, The &#39;, &#39;Genre&#39;: &#39;Film-Noir|Mystery&#39;, &#39;Year&#39;: 1941, &#39;RatingCount&#39;: 1043.0, &#39;AvgRating&#39;: 4.395973154362416}
+Movie: {&#39;MovieID&#39;: 1252, &#39;Title&#39;: &#39;Chinatown &#39;, &#39;Genre&#39;: &#39;Film-Noir|Mystery|Thriller&#39;, &#39;Year&#39;: 1974, &#39;RatingCount&#39;: 1185.0, &#39;AvgRating&#39;: 4.339240506329114}
+Movie: {&#39;MovieID&#39;: 1267, &#39;Title&#39;: &#39;Manchurian Candidate, The &#39;, &#39;Genre&#39;: &#39;Film-Noir|Thriller&#39;, &#39;Year&#39;: 1962, &#39;RatingCount&#39;: 765.0, &#39;AvgRating&#39;: 4.333333333333333}
+
+
+Genre: Horror
+Movie: {&#39;MovieID&#39;: 1278, &#39;Title&#39;: &#39;Young Frankenstein &#39;, &#39;Genre&#39;: &#39;Comedy|Horror&#39;, &#39;Year&#39;: 1974, &#39;RatingCount&#39;: 1193.0, &#39;AvgRating&#39;: 4.250628667225482}
+Movie: {&#39;MovieID&#39;: 1219, &#39;Title&#39;: &#39;Psycho &#39;, &#39;Genre&#39;: &#39;Horror|Thriller&#39;, &#39;Year&#39;: 1960, &#39;RatingCount&#39;: 1263.0, &#39;AvgRating&#39;: 4.218527315914489}
+Movie: {&#39;MovieID&#39;: 1214, &#39;Title&#39;: &#39;Alien &#39;, &#39;Genre&#39;: &#39;Action|Horror|Sci-Fi|Thriller&#39;, &#39;Year&#39;: 1979, &#39;RatingCount&#39;: 2024.0, &#39;AvgRating&#39;: 4.159584980237154}
+Movie: {&#39;MovieID&#39;: 1258, &#39;Title&#39;: &#39;Shining, The &#39;, &#39;Genre&#39;: &#39;Horror&#39;, &#39;Year&#39;: 1980, &#39;RatingCount&#39;: 1087.0, &#39;AvgRating&#39;: 4.104875804967802}
+Movie: {&#39;MovieID&#39;: 1387, &#39;Title&#39;: &#39;Jaws &#39;, &#39;Genre&#39;: &#39;Action|Horror&#39;, &#39;Year&#39;: 1975, &#39;RatingCount&#39;: 1697.0, &#39;AvgRating&#39;: 4.089569829110195}
+
+
+Genre: Musical
+Movie: {&#39;MovieID&#39;: 899, &#39;Title&#39;: &quot;Singin&#39; in the Rain &quot;, &#39;Genre&#39;: &#39;Musical|Romance&#39;, &#39;Year&#39;: 1952, &#39;RatingCount&#39;: 751.0, &#39;AvgRating&#39;: 4.2836218375499335}
+Movie: {&#39;MovieID&#39;: 919, &#39;Title&#39;: &#39;Wizard of Oz, The &#39;, &#39;Genre&#39;: &quot;Adventure|Children&#39;s|Drama|Musical&quot;, &#39;Year&#39;: 1939, &#39;RatingCount&#39;: 1718.0, &#39;AvgRating&#39;: 4.247962747380675}
+Movie: {&#39;MovieID&#39;: 1288, &#39;Title&#39;: &#39;This Is Spinal Tap &#39;, &#39;Genre&#39;: &#39;Comedy|Drama|Musical&#39;, &#39;Year&#39;: 1984, &#39;RatingCount&#39;: 1118.0, &#39;AvgRating&#39;: 4.179785330948121}
+Movie: {&#39;MovieID&#39;: 1066, &#39;Title&#39;: &#39;Shall We Dance? &#39;, &#39;Genre&#39;: &#39;Comedy|Musical|Romance&#39;, &#39;Year&#39;: 1937, &#39;RatingCount&#39;: 175.0, &#39;AvgRating&#39;: 4.1657142857142855}
+Movie: {&#39;MovieID&#39;: 914, &#39;Title&#39;: &#39;My Fair Lady &#39;, &#39;Genre&#39;: &#39;Musical|Romance&#39;, &#39;Year&#39;: 1964, &#39;RatingCount&#39;: 636.0, &#39;AvgRating&#39;: 4.154088050314465}
+
+
+Genre: Mystery
+Movie: {&#39;MovieID&#39;: 904, &#39;Title&#39;: &#39;Rear Window &#39;, &#39;Genre&#39;: &#39;Mystery|Thriller&#39;, &#39;Year&#39;: 1954, &#39;RatingCount&#39;: 1050.0, &#39;AvgRating&#39;: 4.476190476190476}
+Movie: {&#39;MovieID&#39;: 1212, &#39;Title&#39;: &#39;Third Man, The &#39;, &#39;Genre&#39;: &#39;Mystery|Thriller&#39;, &#39;Year&#39;: 1949, &#39;RatingCount&#39;: 480.0, &#39;AvgRating&#39;: 4.452083333333333}
+Movie: {&#39;MovieID&#39;: 913, &#39;Title&#39;: &#39;Maltese Falcon, The &#39;, &#39;Genre&#39;: &#39;Film-Noir|Mystery&#39;, &#39;Year&#39;: 1941, &#39;RatingCount&#39;: 1043.0, &#39;AvgRating&#39;: 4.395973154362416}
+Movie: {&#39;MovieID&#39;: 1252, &#39;Title&#39;: &#39;Chinatown &#39;, &#39;Genre&#39;: &#39;Film-Noir|Mystery|Thriller&#39;, &#39;Year&#39;: 1974, &#39;RatingCount&#39;: 1185.0, &#39;AvgRating&#39;: 4.339240506329114}
+Movie: {&#39;MovieID&#39;: 1284, &#39;Title&#39;: &#39;Big Sleep, The &#39;, &#39;Genre&#39;: &#39;Film-Noir|Mystery&#39;, &#39;Year&#39;: 1946, &#39;RatingCount&#39;: 541.0, &#39;AvgRating&#39;: 4.312384473197782}
+
+
+Genre: Romance
+Movie: {&#39;MovieID&#39;: 912, &#39;Title&#39;: &#39;Casablanca &#39;, &#39;Genre&#39;: &#39;Drama|Romance|War&#39;, &#39;Year&#39;: 1942, &#39;RatingCount&#39;: 1669.0, &#39;AvgRating&#39;: 4.412822049131217}
+Movie: {&#39;MovieID&#39;: 3307, &#39;Title&#39;: &#39;City Lights &#39;, &#39;Genre&#39;: &#39;Comedy|Drama|Romance&#39;, &#39;Year&#39;: 1931, &#39;RatingCount&#39;: 271.0, &#39;AvgRating&#39;: 4.387453874538745}
+Movie: {&#39;MovieID&#39;: 1197, &#39;Title&#39;: &#39;Princess Bride, The &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Comedy|Romance&#39;, &#39;Year&#39;: 1987, &#39;RatingCount&#39;: 2318.0, &#39;AvgRating&#39;: 4.3037100949094045}
+Movie: {&#39;MovieID&#39;: 898, &#39;Title&#39;: &#39;Philadelphia Story, The &#39;, &#39;Genre&#39;: &#39;Comedy|Romance&#39;, &#39;Year&#39;: 1940, &#39;RatingCount&#39;: 582.0, &#39;AvgRating&#39;: 4.3006872852233675}
+Movie: {&#39;MovieID&#39;: 930, &#39;Title&#39;: &#39;Notorious &#39;, &#39;Genre&#39;: &#39;Film-Noir|Romance|Thriller&#39;, &#39;Year&#39;: 1946, &#39;RatingCount&#39;: 445.0, &#39;AvgRating&#39;: 4.29438202247191}
+
+
+Genre: Sci-Fi
+Movie: {&#39;MovieID&#39;: 260, &#39;Title&#39;: &#39;Star Wars: Episode IV - A New Hope &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Fantasy|Sci-Fi&#39;, &#39;Year&#39;: 1977, &#39;RatingCount&#39;: 2991.0, &#39;AvgRating&#39;: 4.453694416583082}
+Movie: {&#39;MovieID&#39;: 750, &#39;Title&#39;: &#39;Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb &#39;, &#39;Genre&#39;: &#39;Sci-Fi|War&#39;, &#39;Year&#39;: 1963, &#39;RatingCount&#39;: 1367.0, &#39;AvgRating&#39;: 4.4498902706656915}
+Movie: {&#39;MovieID&#39;: 2571, &#39;Title&#39;: &#39;Matrix, The &#39;, &#39;Genre&#39;: &#39;Action|Sci-Fi|Thriller&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 2590.0, &#39;AvgRating&#39;: 4.315830115830116}
+Movie: {&#39;MovieID&#39;: 1196, &#39;Title&#39;: &#39;Star Wars: Episode V - The Empire Strikes Back &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Drama|Sci-Fi|War&#39;, &#39;Year&#39;: 1980, &#39;RatingCount&#39;: 2990.0, &#39;AvgRating&#39;: 4.292976588628763}
+Movie: {&#39;MovieID&#39;: 541, &#39;Title&#39;: &#39;Blade Runner &#39;, &#39;Genre&#39;: &#39;Film-Noir|Sci-Fi&#39;, &#39;Year&#39;: 1982, &#39;RatingCount&#39;: 1800.0, &#39;AvgRating&#39;: 4.273333333333333}
+
+
+Genre: Thriller
+Movie: {&#39;MovieID&#39;: 745, &#39;Title&#39;: &#39;Close Shave, A &#39;, &#39;Genre&#39;: &#39;Animation|Comedy|Thriller&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 657.0, &#39;AvgRating&#39;: 4.52054794520548}
+Movie: {&#39;MovieID&#39;: 50, &#39;Title&#39;: &#39;Usual Suspects, The &#39;, &#39;Genre&#39;: &#39;Crime|Thriller&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 1783.0, &#39;AvgRating&#39;: 4.517106001121705}
+Movie: {&#39;MovieID&#39;: 904, &#39;Title&#39;: &#39;Rear Window &#39;, &#39;Genre&#39;: &#39;Mystery|Thriller&#39;, &#39;Year&#39;: 1954, &#39;RatingCount&#39;: 1050.0, &#39;AvgRating&#39;: 4.476190476190476}
+Movie: {&#39;MovieID&#39;: 1212, &#39;Title&#39;: &#39;Third Man, The &#39;, &#39;Genre&#39;: &#39;Mystery|Thriller&#39;, &#39;Year&#39;: 1949, &#39;RatingCount&#39;: 480.0, &#39;AvgRating&#39;: 4.452083333333333}
+Movie: {&#39;MovieID&#39;: 2762, &#39;Title&#39;: &#39;Sixth Sense, The &#39;, &#39;Genre&#39;: &#39;Thriller&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 2459.0, &#39;AvgRating&#39;: 4.406262708418057}
+
+
+Genre: War
+Movie: {&#39;MovieID&#39;: 527, &#39;Title&#39;: &quot;Schindler&#39;s List &quot;, &#39;Genre&#39;: &#39;Drama|War&#39;, &#39;Year&#39;: 1993, &#39;RatingCount&#39;: 2304.0, &#39;AvgRating&#39;: 4.510416666666667}
+Movie: {&#39;MovieID&#39;: 1178, &#39;Title&#39;: &#39;Paths of Glory &#39;, &#39;Genre&#39;: &#39;Drama|War&#39;, &#39;Year&#39;: 1957, &#39;RatingCount&#39;: 230.0, &#39;AvgRating&#39;: 4.473913043478261}
+Movie: {&#39;MovieID&#39;: 750, &#39;Title&#39;: &#39;Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb &#39;, &#39;Genre&#39;: &#39;Sci-Fi|War&#39;, &#39;Year&#39;: 1963, &#39;RatingCount&#39;: 1367.0, &#39;AvgRating&#39;: 4.4498902706656915}
+Movie: {&#39;MovieID&#39;: 912, &#39;Title&#39;: &#39;Casablanca &#39;, &#39;Genre&#39;: &#39;Drama|Romance|War&#39;, &#39;Year&#39;: 1942, &#39;RatingCount&#39;: 1669.0, &#39;AvgRating&#39;: 4.412822049131217}
+Movie: {&#39;MovieID&#39;: 1204, &#39;Title&#39;: &#39;Lawrence of Arabia &#39;, &#39;Genre&#39;: &#39;Adventure|War&#39;, &#39;Year&#39;: 1962, &#39;RatingCount&#39;: 831.0, &#39;AvgRating&#39;: 4.401925391095066}
+
+
+Genre: Western
+Movie: {&#39;MovieID&#39;: 3030, &#39;Title&#39;: &#39;Yojimbo &#39;, &#39;Genre&#39;: &#39;Comedy|Drama|Western&#39;, &#39;Year&#39;: 1961, &#39;RatingCount&#39;: 215.0, &#39;AvgRating&#39;: 4.404651162790698}
+Movie: {&#39;MovieID&#39;: 1304, &#39;Title&#39;: &#39;Butch Cassidy and the Sundance Kid &#39;, &#39;Genre&#39;: &#39;Action|Comedy|Western&#39;, &#39;Year&#39;: 1969, &#39;RatingCount&#39;: 1419.0, &#39;AvgRating&#39;: 4.215644820295983}
+Movie: {&#39;MovieID&#39;: 1283, &#39;Title&#39;: &#39;High Noon &#39;, &#39;Genre&#39;: &#39;Western&#39;, &#39;Year&#39;: 1952, &#39;RatingCount&#39;: 403.0, &#39;AvgRating&#39;: 4.1786600496277915}
+Movie: {&#39;MovieID&#39;: 1201, &#39;Title&#39;: &#39;Good, The Bad and The Ugly, The &#39;, &#39;Genre&#39;: &#39;Action|Western&#39;, &#39;Year&#39;: 1966, &#39;RatingCount&#39;: 822.0, &#39;AvgRating&#39;: 4.133819951338199}
+Movie: {&#39;MovieID&#39;: 1266, &#39;Title&#39;: &#39;Unforgiven &#39;, &#39;Genre&#39;: &#39;Western&#39;, &#39;Year&#39;: 1992, &#39;RatingCount&#39;: 997.0, &#39;AvgRating&#39;: 4.0902708124373115}
+
+
+
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">
+
+</div>
+<section id="Testing-Algorithm-2-(Highest-Rated-and-Recently-Created)"
+class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+data-mime-type="text/markdown">
+<h1>Testing Algorithm 2 (Highest Rated and Recently Created)<a
+href="#Testing-Algorithm-2-(Highest-Rated-and-Recently-Created)"
+class="anchor-link">¶</a></h1>
+<p>This algorithm is identical to algorithm 1, but includes a condition
+to remove older movies. All movies created before 1995 are excluded.
+Since this algorithm is so similar to the first, we added an extra
+algorithm (algo 3) for this assignment.</p>
+<p>Notice how the year is always above 1995.</p>
+</section>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">
+In [6]:
+</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor"
+data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-python">
+<pre><code># Get the top 5 recently created movies per genre by average rating (only movies after 1995)
+movies_df, ratings_df = load_data()
+
+cleaned_movies_df_year = preprocess(movies_df, ratings_df, year_filter=1995)
+genre_year_dict = get_top_by_genre(cleaned_movies_df_year, &#39;AvgRating&#39;, top_n=5)
+display_top_results(genre_year_dict, &#39;\n\nEvaluating movies after 1995 by average rating\n&#39;)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">
+
+</div>
+<div class="jp-RenderedText jp-OutputArea-output"
+data-mime-type="application/vnd.jupyter.stderr">
+<pre><code>/tmp/ipykernel_41716/3701943215.py:12: ParserWarning: Falling back to the &#39;python&#39; engine because the &#39;c&#39; engine does not support regex separators (separators &gt; 1 char and different from &#39;\s+&#39; are interpreted as regex); you can avoid this warning by specifying engine=&#39;python&#39;.
+  movies = pd.read_csv(&#39;movies.dat&#39;, sep=&#39;::&#39;, names=[&#39;MovieID&#39;, &#39;Title&#39;, &#39;Genre&#39;, &#39;Year&#39;],
+/tmp/ipykernel_41716/3701943215.py:14: ParserWarning: Falling back to the &#39;python&#39; engine because the &#39;c&#39; engine does not support regex separators (separators &gt; 1 char and different from &#39;\s+&#39; are interpreted as regex); you can avoid this warning by specifying engine=&#39;python&#39;.
+  ratings = pd.read_csv(&#39;ratings.dat&#39;, sep=&#39;::&#39;,</code></pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">
+
+</div>
+<div class="jp-RenderedText jp-OutputArea-output"
+data-mime-type="text/plain">
+<pre><code>
+Removed 1047 movies because there aren&#39;t enough reviews
+
+
+
+
+Evaluating movies after 1995 by average rating
+
+Genre: Action
+Movie: {&#39;MovieID&#39;: 2028, &#39;Title&#39;: &#39;Saving Private Ryan &#39;, &#39;Genre&#39;: &#39;Action|Drama|War&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 2653.0, &#39;AvgRating&#39;: 4.337353938937053}
+Movie: {&#39;MovieID&#39;: 2571, &#39;Title&#39;: &#39;Matrix, The &#39;, &#39;Genre&#39;: &#39;Action|Sci-Fi|Thriller&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 2590.0, &#39;AvgRating&#39;: 4.315830115830116}
+Movie: {&#39;MovieID&#39;: 110, &#39;Title&#39;: &#39;Braveheart &#39;, &#39;Genre&#39;: &#39;Action|Drama|War&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 2443.0, &#39;AvgRating&#39;: 4.234957020057307}
+Movie: {&#39;MovieID&#39;: 2692, &#39;Title&#39;: &#39;Run Lola Run (Lola rennt) &#39;, &#39;Genre&#39;: &#39;Action|Crime|Romance&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 1072.0, &#39;AvgRating&#39;: 4.224813432835821}
+Movie: {&#39;MovieID&#39;: 3000, &#39;Title&#39;: &#39;Princess Mononoke, The (Mononoke Hime) &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Animation&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 345.0, &#39;AvgRating&#39;: 4.147826086956521}
+
+
+Genre: Adventure
+Movie: {&#39;MovieID&#39;: 3000, &#39;Title&#39;: &#39;Princess Mononoke, The (Mononoke Hime) &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Animation&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 345.0, &#39;AvgRating&#39;: 4.147826086956521}
+Movie: {&#39;MovieID&#39;: 29, &#39;Title&#39;: &#39;City of Lost Children, The &#39;, &#39;Genre&#39;: &#39;Adventure|Sci-Fi&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 403.0, &#39;AvgRating&#39;: 4.062034739454094}
+Movie: {&#39;MovieID&#39;: 3175, &#39;Title&#39;: &#39;Galaxy Quest &#39;, &#39;Genre&#39;: &#39;Adventure|Comedy|Sci-Fi&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 1728.0, &#39;AvgRating&#39;: 3.771412037037037}
+Movie: {&#39;MovieID&#39;: 1580, &#39;Title&#39;: &#39;Men in Black &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Comedy|Sci-Fi&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 2538.0, &#39;AvgRating&#39;: 3.739952718676123}
+Movie: {&#39;MovieID&#39;: 733, &#39;Title&#39;: &#39;Rock, The &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Thriller&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 1340.0, &#39;AvgRating&#39;: 3.723134328358209}
+
+
+Genre: Animation
+Movie: {&#39;MovieID&#39;: 745, &#39;Title&#39;: &#39;Close Shave, A &#39;, &#39;Genre&#39;: &#39;Animation|Comedy|Thriller&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 657.0, &#39;AvgRating&#39;: 4.52054794520548}
+Movie: {&#39;MovieID&#39;: 720, &#39;Title&#39;: &#39;Wallace &amp; Gromit: The Best of Aardman Animation &#39;, &#39;Genre&#39;: &#39;Animation&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 438.0, &#39;AvgRating&#39;: 4.426940639269406}
+Movie: {&#39;MovieID&#39;: 3114, &#39;Title&#39;: &#39;Toy Story 2 &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Comedy&quot;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 1585.0, &#39;AvgRating&#39;: 4.218927444794953}
+Movie: {&#39;MovieID&#39;: 3000, &#39;Title&#39;: &#39;Princess Mononoke, The (Mononoke Hime) &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Animation&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 345.0, &#39;AvgRating&#39;: 4.147826086956521}
+Movie: {&#39;MovieID&#39;: 1, &#39;Title&#39;: &#39;Toy Story &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Comedy&quot;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 2077.0, &#39;AvgRating&#39;: 4.146846413095811}
+
+
+Genre: Children&#39;s
+Movie: {&#39;MovieID&#39;: 3114, &#39;Title&#39;: &#39;Toy Story 2 &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Comedy&quot;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 1585.0, &#39;AvgRating&#39;: 4.218927444794953}
+Movie: {&#39;MovieID&#39;: 1, &#39;Title&#39;: &#39;Toy Story &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Comedy&quot;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 2077.0, &#39;AvgRating&#39;: 4.146846413095811}
+Movie: {&#39;MovieID&#39;: 2761, &#39;Title&#39;: &#39;Iron Giant, The &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s&quot;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 674.0, &#39;AvgRating&#39;: 4.0474777448071215}
+Movie: {&#39;MovieID&#39;: 34, &#39;Title&#39;: &#39;Babe &#39;, &#39;Genre&#39;: &quot;Children&#39;s|Comedy|Drama&quot;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 1751.0, &#39;AvgRating&#39;: 3.8914905768132497}
+Movie: {&#39;MovieID&#39;: 3751, &#39;Title&#39;: &#39;Chicken Run &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Comedy&quot;, &#39;Year&#39;: 2000, &#39;RatingCount&#39;: 1329.0, &#39;AvgRating&#39;: 3.8796087283671934}
+
+
+Genre: Comedy
+Movie: {&#39;MovieID&#39;: 745, &#39;Title&#39;: &#39;Close Shave, A &#39;, &#39;Genre&#39;: &#39;Animation|Comedy|Thriller&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 657.0, &#39;AvgRating&#39;: 4.52054794520548}
+Movie: {&#39;MovieID&#39;: 2324, &#39;Title&#39;: &#39;Life Is Beautiful (La Vita è bella) &#39;, &#39;Genre&#39;: &#39;Comedy|Drama&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 1152.0, &#39;AvgRating&#39;: 4.329861111111111}
+Movie: {&#39;MovieID&#39;: 2858, &#39;Title&#39;: &#39;American Beauty &#39;, &#39;Genre&#39;: &#39;Comedy|Drama&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 3428.0, &#39;AvgRating&#39;: 4.3173862310385065}
+Movie: {&#39;MovieID&#39;: 3897, &#39;Title&#39;: &#39;Almost Famous &#39;, &#39;Genre&#39;: &#39;Comedy|Drama&#39;, &#39;Year&#39;: 2000, &#39;RatingCount&#39;: 994.0, &#39;AvgRating&#39;: 4.22635814889336}
+Movie: {&#39;MovieID&#39;: 3114, &#39;Title&#39;: &#39;Toy Story 2 &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Comedy&quot;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 1585.0, &#39;AvgRating&#39;: 4.218927444794953}
+
+
+Genre: Crime
+Movie: {&#39;MovieID&#39;: 50, &#39;Title&#39;: &#39;Usual Suspects, The &#39;, &#39;Genre&#39;: &#39;Crime|Thriller&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 1783.0, &#39;AvgRating&#39;: 4.517106001121705}
+Movie: {&#39;MovieID&#39;: 608, &#39;Title&#39;: &#39;Fargo &#39;, &#39;Genre&#39;: &#39;Crime|Drama|Thriller&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 2513.0, &#39;AvgRating&#39;: 4.254675686430561}
+Movie: {&#39;MovieID&#39;: 2692, &#39;Title&#39;: &#39;Run Lola Run (Lola rennt) &#39;, &#39;Genre&#39;: &#39;Action|Crime|Romance&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 1072.0, &#39;AvgRating&#39;: 4.224813432835821}
+Movie: {&#39;MovieID&#39;: 1617, &#39;Title&#39;: &#39;L.A. Confidential &#39;, &#39;Genre&#39;: &#39;Crime|Film-Noir|Mystery|Thriller&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 2288.0, &#39;AvgRating&#39;: 4.219405594405594}
+Movie: {&#39;MovieID&#39;: 47, &#39;Title&#39;: &#39;Seven (Se7en) &#39;, &#39;Genre&#39;: &#39;Crime|Thriller&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 1137.0, &#39;AvgRating&#39;: 4.106420404573439}
+
+
+Genre: Documentary
+Movie: {&#39;MovieID&#39;: 1147, &#39;Title&#39;: &#39;When We Were Kings &#39;, &#39;Genre&#39;: &#39;Documentary&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 277.0, &#39;AvgRating&#39;: 4.32129963898917}
+Movie: {&#39;MovieID&#39;: 3077, &#39;Title&#39;: &#39;42 Up &#39;, &#39;Genre&#39;: &#39;Documentary&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 88.0, &#39;AvgRating&#39;: 4.2272727272727275}
+Movie: {&#39;MovieID&#39;: 1361, &#39;Title&#39;: &#39;Paradise Lost: The Child Murders at Robin Hood Hills &#39;, &#39;Genre&#39;: &#39;Documentary&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 159.0, &#39;AvgRating&#39;: 4.213836477987422}
+Movie: {&#39;MovieID&#39;: 2330, &#39;Title&#39;: &#39;Hands on a Hard Body &#39;, &#39;Genre&#39;: &#39;Documentary&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 92.0, &#39;AvgRating&#39;: 4.163043478260869}
+Movie: {&#39;MovieID&#39;: 116, &#39;Title&#39;: &#39;Anne Frank Remembered &#39;, &#39;Genre&#39;: &#39;Documentary&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 41.0, &#39;AvgRating&#39;: 4.097560975609756}
+
+
+Genre: Drama
+Movie: {&#39;MovieID&#39;: 2028, &#39;Title&#39;: &#39;Saving Private Ryan &#39;, &#39;Genre&#39;: &#39;Action|Drama|War&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 2653.0, &#39;AvgRating&#39;: 4.337353938937053}
+Movie: {&#39;MovieID&#39;: 2324, &#39;Title&#39;: &#39;Life Is Beautiful (La Vita è bella) &#39;, &#39;Genre&#39;: &#39;Comedy|Drama&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 1152.0, &#39;AvgRating&#39;: 4.329861111111111}
+Movie: {&#39;MovieID&#39;: 2858, &#39;Title&#39;: &#39;American Beauty &#39;, &#39;Genre&#39;: &#39;Comedy|Drama&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 3428.0, &#39;AvgRating&#39;: 4.3173862310385065}
+Movie: {&#39;MovieID&#39;: 2360, &#39;Title&#39;: &#39;Celebration, The (Festen) &#39;, &#39;Genre&#39;: &#39;Drama&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 117.0, &#39;AvgRating&#39;: 4.3076923076923075}
+Movie: {&#39;MovieID&#39;: 2357, &#39;Title&#39;: &#39;Central Station (Central do Brasil) &#39;, &#39;Genre&#39;: &#39;Drama&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 215.0, &#39;AvgRating&#39;: 4.283720930232558}
+
+
+Genre: Fantasy
+Movie: {&#39;MovieID&#39;: 2628, &#39;Title&#39;: &#39;Star Wars: Episode I - The Phantom Menace &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Fantasy|Sci-Fi&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 2250.0, &#39;AvgRating&#39;: 3.409777777777778}
+Movie: {&#39;MovieID&#39;: 2622, &#39;Title&#39;: &quot;Midsummer Night&#39;s Dream, A &quot;, &#39;Genre&#39;: &#39;Comedy|Fantasy&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 415.0, &#39;AvgRating&#39;: 3.3493975903614457}
+Movie: {&#39;MovieID&#39;: 1654, &#39;Title&#39;: &#39;FairyTale: A True Story &#39;, &#39;Genre&#39;: &quot;Children&#39;s|Drama|Fantasy&quot;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 87.0, &#39;AvgRating&#39;: 3.310344827586207}
+Movie: {&#39;MovieID&#39;: 653, &#39;Title&#39;: &#39;Dragonheart &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Fantasy&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 612.0, &#39;AvgRating&#39;: 3.2254901960784315}
+Movie: {&#39;MovieID&#39;: 60, &#39;Title&#39;: &#39;Indian in the Cupboard, The &#39;, &#39;Genre&#39;: &quot;Adventure|Children&#39;s|Fantasy&quot;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 357.0, &#39;AvgRating&#39;: 3.212885154061625}
+
+
+Genre: Film-Noir
+Movie: {&#39;MovieID&#39;: 1617, &#39;Title&#39;: &#39;L.A. Confidential &#39;, &#39;Genre&#39;: &#39;Crime|Film-Noir|Mystery|Thriller&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 2288.0, &#39;AvgRating&#39;: 4.219405594405594}
+Movie: {&#39;MovieID&#39;: 1748, &#39;Title&#39;: &#39;Dark City &#39;, &#39;Genre&#39;: &#39;Film-Noir|Sci-Fi|Thriller&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 874.0, &#39;AvgRating&#39;: 3.822654462242563}
+Movie: {&#39;MovieID&#39;: 164, &#39;Title&#39;: &#39;Devil in a Blue Dress &#39;, &#39;Genre&#39;: &#39;Crime|Film-Noir|Mystery|Thriller&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 379.0, &#39;AvgRating&#39;: 3.5672823218997363}
+Movie: {&#39;MovieID&#39;: 707, &#39;Title&#39;: &#39;Mulholland Falls &#39;, &#39;Genre&#39;: &#39;Crime|Film-Noir|Thriller&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 275.0, &#39;AvgRating&#39;: 3.0872727272727274}
+Movie: {&#39;MovieID&#39;: 1783, &#39;Title&#39;: &#39;Palmetto &#39;, &#39;Genre&#39;: &#39;Film-Noir|Mystery|Thriller&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 220.0, &#39;AvgRating&#39;: 2.9272727272727272}
+
+
+Genre: Horror
+Movie: {&#39;MovieID&#39;: 1407, &#39;Title&#39;: &#39;Scream &#39;, &#39;Genre&#39;: &#39;Horror|Thriller&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 886.0, &#39;AvgRating&#39;: 3.5756207674943568}
+Movie: {&#39;MovieID&#39;: 3081, &#39;Title&#39;: &#39;Sleepy Hollow &#39;, &#39;Genre&#39;: &#39;Horror|Romance&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 1066.0, &#39;AvgRating&#39;: 3.516885553470919}
+Movie: {&#39;MovieID&#39;: 2167, &#39;Title&#39;: &#39;Blade &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Horror&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 809.0, &#39;AvgRating&#39;: 3.477132262051916}
+Movie: {&#39;MovieID&#39;: 1645, &#39;Title&#39;: &quot;Devil&#39;s Advocate, The &quot;, &#39;Genre&#39;: &#39;Crime|Horror|Mystery|Thriller&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 826.0, &#39;AvgRating&#39;: 3.4358353510895885}
+Movie: {&#39;MovieID&#39;: 799, &#39;Title&#39;: &#39;Frighteners, The &#39;, &#39;Genre&#39;: &#39;Comedy|Horror&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 338.0, &#39;AvgRating&#39;: 3.3491124260355027}
+
+
+Genre: Musical
+Movie: {&#39;MovieID&#39;: 3910, &#39;Title&#39;: &#39;Dancer in the Dark &#39;, &#39;Genre&#39;: &#39;Drama|Musical&#39;, &#39;Year&#39;: 2000, &#39;RatingCount&#39;: 200.0, &#39;AvgRating&#39;: 3.82}
+Movie: {&#39;MovieID&#39;: 73, &#39;Title&#39;: &#39;Misérables, Les &#39;, &#39;Genre&#39;: &#39;Drama|Musical&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 224.0, &#39;AvgRating&#39;: 3.8169642857142856}
+Movie: {&#39;MovieID&#39;: 3159, &#39;Title&#39;: &#39;Fantasia 2000 &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Musical&quot;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 453.0, &#39;AvgRating&#39;: 3.8057395143487858}
+Movie: {&#39;MovieID&#39;: 2394, &#39;Title&#39;: &#39;Prince of Egypt, The &#39;, &#39;Genre&#39;: &#39;Animation|Musical&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 579.0, &#39;AvgRating&#39;: 3.5716753022452505}
+Movie: {&#39;MovieID&#39;: 1057, &#39;Title&#39;: &#39;Everyone Says I Love You &#39;, &#39;Genre&#39;: &#39;Comedy|Musical|Romance&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 274.0, &#39;AvgRating&#39;: 3.5583941605839415}
+
+
+Genre: Mystery
+Movie: {&#39;MovieID&#39;: 1617, &#39;Title&#39;: &#39;L.A. Confidential &#39;, &#39;Genre&#39;: &#39;Crime|Film-Noir|Mystery|Thriller&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 2288.0, &#39;AvgRating&#39;: 4.219405594405594}
+Movie: {&#39;MovieID&#39;: 800, &#39;Title&#39;: &#39;Lone Star &#39;, &#39;Genre&#39;: &#39;Drama|Mystery&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 630.0, &#39;AvgRating&#39;: 4.082539682539682}
+Movie: {&#39;MovieID&#39;: 2686, &#39;Title&#39;: &#39;Red Violin, The (Le Violon rouge) &#39;, &#39;Genre&#39;: &#39;Drama|Mystery&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 583.0, &#39;AvgRating&#39;: 3.9622641509433962}
+Movie: {&#39;MovieID&#39;: 2810, &#39;Title&#39;: &#39;Perfect Blue &#39;, &#39;Genre&#39;: &#39;Animation|Mystery&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 41.0, &#39;AvgRating&#39;: 3.926829268292683}
+Movie: {&#39;MovieID&#39;: 1625, &#39;Title&#39;: &#39;Game, The &#39;, &#39;Genre&#39;: &#39;Mystery|Thriller&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 882.0, &#39;AvgRating&#39;: 3.9138321995464853}
+
+
+Genre: Romance
+Movie: {&#39;MovieID&#39;: 2692, &#39;Title&#39;: &#39;Run Lola Run (Lola rennt) &#39;, &#39;Genre&#39;: &#39;Action|Crime|Romance&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 1072.0, &#39;AvgRating&#39;: 4.224813432835821}
+Movie: {&#39;MovieID&#39;: 2396, &#39;Title&#39;: &#39;Shakespeare in Love &#39;, &#39;Genre&#39;: &#39;Comedy|Romance&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 2369.0, &#39;AvgRating&#39;: 4.127479949345715}
+Movie: {&#39;MovieID&#39;: 1046, &#39;Title&#39;: &#39;Beautiful Thing &#39;, &#39;Genre&#39;: &#39;Drama|Romance&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 90.0, &#39;AvgRating&#39;: 4.066666666666666}
+Movie: {&#39;MovieID&#39;: 28, &#39;Title&#39;: &#39;Persuasion &#39;, &#39;Genre&#39;: &#39;Romance&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 179.0, &#39;AvgRating&#39;: 4.055865921787709}
+Movie: {&#39;MovieID&#39;: 17, &#39;Title&#39;: &#39;Sense and Sensibility &#39;, &#39;Genre&#39;: &#39;Drama|Romance&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 835.0, &#39;AvgRating&#39;: 4.027544910179641}
+
+
+Genre: Sci-Fi
+Movie: {&#39;MovieID&#39;: 2571, &#39;Title&#39;: &#39;Matrix, The &#39;, &#39;Genre&#39;: &#39;Action|Sci-Fi|Thriller&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 2590.0, &#39;AvgRating&#39;: 4.315830115830116}
+Movie: {&#39;MovieID&#39;: 741, &#39;Title&#39;: &#39;Ghost in the Shell (Kokaku kidotai) &#39;, &#39;Genre&#39;: &#39;Animation|Sci-Fi&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 314.0, &#39;AvgRating&#39;: 4.089171974522293}
+Movie: {&#39;MovieID&#39;: 29, &#39;Title&#39;: &#39;City of Lost Children, The &#39;, &#39;Genre&#39;: &#39;Adventure|Sci-Fi&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 403.0, &#39;AvgRating&#39;: 4.062034739454094}
+Movie: {&#39;MovieID&#39;: 2594, &#39;Title&#39;: &#39;Open Your Eyes (Abre los ojos) &#39;, &#39;Genre&#39;: &#39;Drama|Romance|Sci-Fi&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 62.0, &#39;AvgRating&#39;: 3.9516129032258065}
+Movie: {&#39;MovieID&#39;: 32, &#39;Title&#39;: &#39;Twelve Monkeys &#39;, &#39;Genre&#39;: &#39;Drama|Sci-Fi&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 1511.0, &#39;AvgRating&#39;: 3.945731303772336}
+
+
+Genre: Thriller
+Movie: {&#39;MovieID&#39;: 745, &#39;Title&#39;: &#39;Close Shave, A &#39;, &#39;Genre&#39;: &#39;Animation|Comedy|Thriller&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 657.0, &#39;AvgRating&#39;: 4.52054794520548}
+Movie: {&#39;MovieID&#39;: 50, &#39;Title&#39;: &#39;Usual Suspects, The &#39;, &#39;Genre&#39;: &#39;Crime|Thriller&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 1783.0, &#39;AvgRating&#39;: 4.517106001121705}
+Movie: {&#39;MovieID&#39;: 2762, &#39;Title&#39;: &#39;Sixth Sense, The &#39;, &#39;Genre&#39;: &#39;Thriller&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 2459.0, &#39;AvgRating&#39;: 4.406262708418057}
+Movie: {&#39;MovieID&#39;: 2571, &#39;Title&#39;: &#39;Matrix, The &#39;, &#39;Genre&#39;: &#39;Action|Sci-Fi|Thriller&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 2590.0, &#39;AvgRating&#39;: 4.315830115830116}
+Movie: {&#39;MovieID&#39;: 608, &#39;Title&#39;: &#39;Fargo &#39;, &#39;Genre&#39;: &#39;Crime|Drama|Thriller&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 2513.0, &#39;AvgRating&#39;: 4.254675686430561}
+
+
+Genre: War
+Movie: {&#39;MovieID&#39;: 2028, &#39;Title&#39;: &#39;Saving Private Ryan &#39;, &#39;Genre&#39;: &#39;Action|Drama|War&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 2653.0, &#39;AvgRating&#39;: 4.337353938937053}
+Movie: {&#39;MovieID&#39;: 110, &#39;Title&#39;: &#39;Braveheart &#39;, &#39;Genre&#39;: &#39;Action|Drama|War&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 2443.0, &#39;AvgRating&#39;: 4.234957020057307}
+Movie: {&#39;MovieID&#39;: 41, &#39;Title&#39;: &#39;Richard III &#39;, &#39;Genre&#39;: &#39;Drama|War&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 242.0, &#39;AvgRating&#39;: 3.958677685950413}
+Movie: {&#39;MovieID&#39;: 3746, &#39;Title&#39;: &#39;Butterfly (La Lengua de las Mariposas) &#39;, &#39;Genre&#39;: &#39;Drama|War&#39;, &#39;Year&#39;: 2000, &#39;RatingCount&#39;: 69.0, &#39;AvgRating&#39;: 3.8550724637681157}
+Movie: {&#39;MovieID&#39;: 2890, &#39;Title&#39;: &#39;Three Kings &#39;, &#39;Genre&#39;: &#39;Drama|War&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 1021.0, &#39;AvgRating&#39;: 3.8070519098922624}
+
+
+Genre: Western
+Movie: {&#39;MovieID&#39;: 714, &#39;Title&#39;: &#39;Dead Man &#39;, &#39;Genre&#39;: &#39;Western&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 153.0, &#39;AvgRating&#39;: 3.888888888888889}
+Movie: {&#39;MovieID&#39;: 210, &#39;Title&#39;: &#39;Wild Bill &#39;, &#39;Genre&#39;: &#39;Western&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 41.0, &#39;AvgRating&#39;: 3.1463414634146343}
+Movie: {&#39;MovieID&#39;: 303, &#39;Title&#39;: &#39;Quick and the Dead, The &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Western&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 418.0, &#39;AvgRating&#39;: 2.9760765550239237}
+Movie: {&#39;MovieID&#39;: 996, &#39;Title&#39;: &#39;Last Man Standing &#39;, &#39;Genre&#39;: &#39;Action|Drama|Western&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 256.0, &#39;AvgRating&#39;: 2.90625}
+Movie: {&#39;MovieID&#39;: 2701, &#39;Title&#39;: &#39;Wild Wild West &#39;, &#39;Genre&#39;: &#39;Action|Sci-Fi|Western&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 902.0, &#39;AvgRating&#39;: 2.158536585365854}
+
+
+
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">
+
+</div>
+<section id="Testing-Algorithm-3-(Most-Popular)"
+class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+data-mime-type="text/markdown">
+<h1>Testing Algorithm 3 (Most Popular)<a
+href="#Testing-Algorithm-3-(Most-Popular)"
+class="anchor-link">¶</a></h1>
+<p>Most Popular represents the most rated movies per genre. To get this
+metric, we measure the quantity of reviews for each movie. So, the
+movies that have the most reviews are considered the most popular.</p>
+<p>Notice how the RatingCount takes priority.</p>
+</section>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">
+In [7]:
+</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor"
+data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="highlight hl-python">
+<pre><code># Get the top 5 movies per genre by popularity (quantity of reviews)
+movies_df, ratings_df = load_data()
+
+cleaned_movies_df_pop = preprocess(movies_df, ratings_df)
+genre_pop_dict = get_top_by_genre(cleaned_movies_df_pop, &#39;RatingCount&#39;, top_n=5)
+display_top_results(genre_pop_dict, &#39;\n\nEvaluating movies by popularity\n&#39;)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">
+
+</div>
+<div class="jp-RenderedText jp-OutputArea-output"
+data-mime-type="application/vnd.jupyter.stderr">
+<pre><code>/tmp/ipykernel_41716/3701943215.py:12: ParserWarning: Falling back to the &#39;python&#39; engine because the &#39;c&#39; engine does not support regex separators (separators &gt; 1 char and different from &#39;\s+&#39; are interpreted as regex); you can avoid this warning by specifying engine=&#39;python&#39;.
+  movies = pd.read_csv(&#39;movies.dat&#39;, sep=&#39;::&#39;, names=[&#39;MovieID&#39;, &#39;Title&#39;, &#39;Genre&#39;, &#39;Year&#39;],
+/tmp/ipykernel_41716/3701943215.py:14: ParserWarning: Falling back to the &#39;python&#39; engine because the &#39;c&#39; engine does not support regex separators (separators &gt; 1 char and different from &#39;\s+&#39; are interpreted as regex); you can avoid this warning by specifying engine=&#39;python&#39;.
+  ratings = pd.read_csv(&#39;ratings.dat&#39;, sep=&#39;::&#39;,</code></pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">
+
+</div>
+<div class="jp-RenderedText jp-OutputArea-output"
+data-mime-type="text/plain">
+<pre><code>
+Removed 1047 movies because there aren&#39;t enough reviews
+
+
+
+
+Evaluating movies by popularity
+
+Genre: Action
+Movie: {&#39;MovieID&#39;: 260, &#39;Title&#39;: &#39;Star Wars: Episode IV - A New Hope &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Fantasy|Sci-Fi&#39;, &#39;Year&#39;: 1977, &#39;RatingCount&#39;: 2991.0, &#39;AvgRating&#39;: 4.453694416583082}
+Movie: {&#39;MovieID&#39;: 1196, &#39;Title&#39;: &#39;Star Wars: Episode V - The Empire Strikes Back &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Drama|Sci-Fi|War&#39;, &#39;Year&#39;: 1980, &#39;RatingCount&#39;: 2990.0, &#39;AvgRating&#39;: 4.292976588628763}
+Movie: {&#39;MovieID&#39;: 1210, &#39;Title&#39;: &#39;Star Wars: Episode VI - Return of the Jedi &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Romance|Sci-Fi|War&#39;, &#39;Year&#39;: 1983, &#39;RatingCount&#39;: 2883.0, &#39;AvgRating&#39;: 4.022892819979188}
+Movie: {&#39;MovieID&#39;: 480, &#39;Title&#39;: &#39;Jurassic Park &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Sci-Fi&#39;, &#39;Year&#39;: 1993, &#39;RatingCount&#39;: 2672.0, &#39;AvgRating&#39;: 3.7638473053892216}
+Movie: {&#39;MovieID&#39;: 2028, &#39;Title&#39;: &#39;Saving Private Ryan &#39;, &#39;Genre&#39;: &#39;Action|Drama|War&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 2653.0, &#39;AvgRating&#39;: 4.337353938937053}
+
+
+Genre: Adventure
+Movie: {&#39;MovieID&#39;: 260, &#39;Title&#39;: &#39;Star Wars: Episode IV - A New Hope &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Fantasy|Sci-Fi&#39;, &#39;Year&#39;: 1977, &#39;RatingCount&#39;: 2991.0, &#39;AvgRating&#39;: 4.453694416583082}
+Movie: {&#39;MovieID&#39;: 1196, &#39;Title&#39;: &#39;Star Wars: Episode V - The Empire Strikes Back &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Drama|Sci-Fi|War&#39;, &#39;Year&#39;: 1980, &#39;RatingCount&#39;: 2990.0, &#39;AvgRating&#39;: 4.292976588628763}
+Movie: {&#39;MovieID&#39;: 1210, &#39;Title&#39;: &#39;Star Wars: Episode VI - Return of the Jedi &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Romance|Sci-Fi|War&#39;, &#39;Year&#39;: 1983, &#39;RatingCount&#39;: 2883.0, &#39;AvgRating&#39;: 4.022892819979188}
+Movie: {&#39;MovieID&#39;: 480, &#39;Title&#39;: &#39;Jurassic Park &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Sci-Fi&#39;, &#39;Year&#39;: 1993, &#39;RatingCount&#39;: 2672.0, &#39;AvgRating&#39;: 3.7638473053892216}
+Movie: {&#39;MovieID&#39;: 1580, &#39;Title&#39;: &#39;Men in Black &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Comedy|Sci-Fi&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 2538.0, &#39;AvgRating&#39;: 3.739952718676123}
+
+
+Genre: Animation
+Movie: {&#39;MovieID&#39;: 1, &#39;Title&#39;: &#39;Toy Story &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Comedy&quot;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 2077.0, &#39;AvgRating&#39;: 4.146846413095811}
+Movie: {&#39;MovieID&#39;: 2987, &#39;Title&#39;: &#39;Who Framed Roger Rabbit? &#39;, &#39;Genre&#39;: &#39;Adventure|Animation|Film-Noir&#39;, &#39;Year&#39;: 1988, &#39;RatingCount&#39;: 1799.0, &#39;AvgRating&#39;: 3.6798221234018897}
+Movie: {&#39;MovieID&#39;: 2355, &#39;Title&#39;: &quot;Bug&#39;s Life, A &quot;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Comedy&quot;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 1703.0, &#39;AvgRating&#39;: 3.854374633000587}
+Movie: {&#39;MovieID&#39;: 3114, &#39;Title&#39;: &#39;Toy Story 2 &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Comedy&quot;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 1585.0, &#39;AvgRating&#39;: 4.218927444794953}
+Movie: {&#39;MovieID&#39;: 588, &#39;Title&#39;: &#39;Aladdin &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Comedy|Musical&quot;, &#39;Year&#39;: 1992, &#39;RatingCount&#39;: 1351.0, &#39;AvgRating&#39;: 3.788304959289415}
+
+
+Genre: Children&#39;s
+Movie: {&#39;MovieID&#39;: 1097, &#39;Title&#39;: &#39;E.T. the Extra-Terrestrial &#39;, &#39;Genre&#39;: &quot;Children&#39;s|Drama|Fantasy|Sci-Fi&quot;, &#39;Year&#39;: 1982, &#39;RatingCount&#39;: 2269.0, &#39;AvgRating&#39;: 3.9651828999559275}
+Movie: {&#39;MovieID&#39;: 1, &#39;Title&#39;: &#39;Toy Story &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Comedy&quot;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 2077.0, &#39;AvgRating&#39;: 4.146846413095811}
+Movie: {&#39;MovieID&#39;: 34, &#39;Title&#39;: &#39;Babe &#39;, &#39;Genre&#39;: &quot;Children&#39;s|Comedy|Drama&quot;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 1751.0, &#39;AvgRating&#39;: 3.8914905768132497}
+Movie: {&#39;MovieID&#39;: 919, &#39;Title&#39;: &#39;Wizard of Oz, The &#39;, &#39;Genre&#39;: &quot;Adventure|Children&#39;s|Drama|Musical&quot;, &#39;Year&#39;: 1939, &#39;RatingCount&#39;: 1718.0, &#39;AvgRating&#39;: 4.247962747380675}
+Movie: {&#39;MovieID&#39;: 2355, &#39;Title&#39;: &quot;Bug&#39;s Life, A &quot;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Comedy&quot;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 1703.0, &#39;AvgRating&#39;: 3.854374633000587}
+
+
+Genre: Comedy
+Movie: {&#39;MovieID&#39;: 2858, &#39;Title&#39;: &#39;American Beauty &#39;, &#39;Genre&#39;: &#39;Comedy|Drama&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 3428.0, &#39;AvgRating&#39;: 4.3173862310385065}
+Movie: {&#39;MovieID&#39;: 1270, &#39;Title&#39;: &#39;Back to the Future &#39;, &#39;Genre&#39;: &#39;Comedy|Sci-Fi&#39;, &#39;Year&#39;: 1985, &#39;RatingCount&#39;: 2583.0, &#39;AvgRating&#39;: 3.9903213317847466}
+Movie: {&#39;MovieID&#39;: 1580, &#39;Title&#39;: &#39;Men in Black &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Comedy|Sci-Fi&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 2538.0, &#39;AvgRating&#39;: 3.739952718676123}
+Movie: {&#39;MovieID&#39;: 2396, &#39;Title&#39;: &#39;Shakespeare in Love &#39;, &#39;Genre&#39;: &#39;Comedy|Romance&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 2369.0, &#39;AvgRating&#39;: 4.127479949345715}
+Movie: {&#39;MovieID&#39;: 1197, &#39;Title&#39;: &#39;Princess Bride, The &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Comedy|Romance&#39;, &#39;Year&#39;: 1987, &#39;RatingCount&#39;: 2318.0, &#39;AvgRating&#39;: 4.3037100949094045}
+
+
+Genre: Crime
+Movie: {&#39;MovieID&#39;: 608, &#39;Title&#39;: &#39;Fargo &#39;, &#39;Genre&#39;: &#39;Crime|Drama|Thriller&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 2513.0, &#39;AvgRating&#39;: 4.254675686430561}
+Movie: {&#39;MovieID&#39;: 1617, &#39;Title&#39;: &#39;L.A. Confidential &#39;, &#39;Genre&#39;: &#39;Crime|Film-Noir|Mystery|Thriller&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 2288.0, &#39;AvgRating&#39;: 4.219405594405594}
+Movie: {&#39;MovieID&#39;: 858, &#39;Title&#39;: &#39;Godfather, The &#39;, &#39;Genre&#39;: &#39;Action|Crime|Drama&#39;, &#39;Year&#39;: 1972, &#39;RatingCount&#39;: 2223.0, &#39;AvgRating&#39;: 4.524966261808367}
+Movie: {&#39;MovieID&#39;: 296, &#39;Title&#39;: &#39;Pulp Fiction &#39;, &#39;Genre&#39;: &#39;Crime|Drama&#39;, &#39;Year&#39;: 1994, &#39;RatingCount&#39;: 2171.0, &#39;AvgRating&#39;: 4.278212805158913}
+Movie: {&#39;MovieID&#39;: 50, &#39;Title&#39;: &#39;Usual Suspects, The &#39;, &#39;Genre&#39;: &#39;Crime|Thriller&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 1783.0, &#39;AvgRating&#39;: 4.517106001121705}
+
+
+Genre: Documentary
+Movie: {&#39;MovieID&#39;: 2064, &#39;Title&#39;: &#39;Roger &amp; Me &#39;, &#39;Genre&#39;: &#39;Comedy|Documentary&#39;, &#39;Year&#39;: 1989, &#39;RatingCount&#39;: 798.0, &#39;AvgRating&#39;: 4.0739348370927315}
+Movie: {&#39;MovieID&#39;: 246, &#39;Title&#39;: &#39;Hoop Dreams &#39;, &#39;Genre&#39;: &#39;Documentary&#39;, &#39;Year&#39;: 1994, &#39;RatingCount&#39;: 716.0, &#39;AvgRating&#39;: 4.18854748603352}
+Movie: {&#39;MovieID&#39;: 162, &#39;Title&#39;: &#39;Crumb &#39;, &#39;Genre&#39;: &#39;Documentary&#39;, &#39;Year&#39;: 1994, &#39;RatingCount&#39;: 491.0, &#39;AvgRating&#39;: 4.063136456211812}
+Movie: {&#39;MovieID&#39;: 3007, &#39;Title&#39;: &#39;American Movie &#39;, &#39;Genre&#39;: &#39;Documentary&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 295.0, &#39;AvgRating&#39;: 4.013559322033898}
+Movie: {&#39;MovieID&#39;: 1147, &#39;Title&#39;: &#39;When We Were Kings &#39;, &#39;Genre&#39;: &#39;Documentary&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 277.0, &#39;AvgRating&#39;: 4.32129963898917}
+
+
+Genre: Drama
+Movie: {&#39;MovieID&#39;: 2858, &#39;Title&#39;: &#39;American Beauty &#39;, &#39;Genre&#39;: &#39;Comedy|Drama&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 3428.0, &#39;AvgRating&#39;: 4.3173862310385065}
+Movie: {&#39;MovieID&#39;: 1196, &#39;Title&#39;: &#39;Star Wars: Episode V - The Empire Strikes Back &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Drama|Sci-Fi|War&#39;, &#39;Year&#39;: 1980, &#39;RatingCount&#39;: 2990.0, &#39;AvgRating&#39;: 4.292976588628763}
+Movie: {&#39;MovieID&#39;: 2028, &#39;Title&#39;: &#39;Saving Private Ryan &#39;, &#39;Genre&#39;: &#39;Action|Drama|War&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 2653.0, &#39;AvgRating&#39;: 4.337353938937053}
+Movie: {&#39;MovieID&#39;: 593, &#39;Title&#39;: &#39;Silence of the Lambs, The &#39;, &#39;Genre&#39;: &#39;Drama|Thriller&#39;, &#39;Year&#39;: 1991, &#39;RatingCount&#39;: 2578.0, &#39;AvgRating&#39;: 4.3518231186966645}
+Movie: {&#39;MovieID&#39;: 608, &#39;Title&#39;: &#39;Fargo &#39;, &#39;Genre&#39;: &#39;Crime|Drama|Thriller&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 2513.0, &#39;AvgRating&#39;: 4.254675686430561}
+
+
+Genre: Fantasy
+Movie: {&#39;MovieID&#39;: 260, &#39;Title&#39;: &#39;Star Wars: Episode IV - A New Hope &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Fantasy|Sci-Fi&#39;, &#39;Year&#39;: 1977, &#39;RatingCount&#39;: 2991.0, &#39;AvgRating&#39;: 4.453694416583082}
+Movie: {&#39;MovieID&#39;: 1097, &#39;Title&#39;: &#39;E.T. the Extra-Terrestrial &#39;, &#39;Genre&#39;: &quot;Children&#39;s|Drama|Fantasy|Sci-Fi&quot;, &#39;Year&#39;: 1982, &#39;RatingCount&#39;: 2269.0, &#39;AvgRating&#39;: 3.9651828999559275}
+Movie: {&#39;MovieID&#39;: 2628, &#39;Title&#39;: &#39;Star Wars: Episode I - The Phantom Menace &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Fantasy|Sci-Fi&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 2250.0, &#39;AvgRating&#39;: 3.409777777777778}
+Movie: {&#39;MovieID&#39;: 2174, &#39;Title&#39;: &#39;Beetlejuice &#39;, &#39;Genre&#39;: &#39;Comedy|Fantasy&#39;, &#39;Year&#39;: 1988, &#39;RatingCount&#39;: 1495.0, &#39;AvgRating&#39;: 3.5678929765886287}
+Movie: {&#39;MovieID&#39;: 2797, &#39;Title&#39;: &#39;Big &#39;, &#39;Genre&#39;: &#39;Comedy|Fantasy&#39;, &#39;Year&#39;: 1988, &#39;RatingCount&#39;: 1491.0, &#39;AvgRating&#39;: 3.8558014755197854}
+
+
+Genre: Film-Noir
+Movie: {&#39;MovieID&#39;: 1617, &#39;Title&#39;: &#39;L.A. Confidential &#39;, &#39;Genre&#39;: &#39;Crime|Film-Noir|Mystery|Thriller&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 2288.0, &#39;AvgRating&#39;: 4.219405594405594}
+Movie: {&#39;MovieID&#39;: 541, &#39;Title&#39;: &#39;Blade Runner &#39;, &#39;Genre&#39;: &#39;Film-Noir|Sci-Fi&#39;, &#39;Year&#39;: 1982, &#39;RatingCount&#39;: 1800.0, &#39;AvgRating&#39;: 4.273333333333333}
+Movie: {&#39;MovieID&#39;: 2987, &#39;Title&#39;: &#39;Who Framed Roger Rabbit? &#39;, &#39;Genre&#39;: &#39;Adventure|Animation|Film-Noir&#39;, &#39;Year&#39;: 1988, &#39;RatingCount&#39;: 1799.0, &#39;AvgRating&#39;: 3.6798221234018897}
+Movie: {&#39;MovieID&#39;: 1252, &#39;Title&#39;: &#39;Chinatown &#39;, &#39;Genre&#39;: &#39;Film-Noir|Mystery|Thriller&#39;, &#39;Year&#39;: 1974, &#39;RatingCount&#39;: 1185.0, &#39;AvgRating&#39;: 4.339240506329114}
+Movie: {&#39;MovieID&#39;: 913, &#39;Title&#39;: &#39;Maltese Falcon, The &#39;, &#39;Genre&#39;: &#39;Film-Noir|Mystery&#39;, &#39;Year&#39;: 1941, &#39;RatingCount&#39;: 1043.0, &#39;AvgRating&#39;: 4.395973154362416}
+
+
+Genre: Horror
+Movie: {&#39;MovieID&#39;: 2716, &#39;Title&#39;: &#39;Ghostbusters &#39;, &#39;Genre&#39;: &#39;Comedy|Horror&#39;, &#39;Year&#39;: 1984, &#39;RatingCount&#39;: 2181.0, &#39;AvgRating&#39;: 3.9055479138010085}
+Movie: {&#39;MovieID&#39;: 1214, &#39;Title&#39;: &#39;Alien &#39;, &#39;Genre&#39;: &#39;Action|Horror|Sci-Fi|Thriller&#39;, &#39;Year&#39;: 1979, &#39;RatingCount&#39;: 2024.0, &#39;AvgRating&#39;: 4.159584980237154}
+Movie: {&#39;MovieID&#39;: 1387, &#39;Title&#39;: &#39;Jaws &#39;, &#39;Genre&#39;: &#39;Action|Horror&#39;, &#39;Year&#39;: 1975, &#39;RatingCount&#39;: 1697.0, &#39;AvgRating&#39;: 4.089569829110195}
+Movie: {&#39;MovieID&#39;: 1219, &#39;Title&#39;: &#39;Psycho &#39;, &#39;Genre&#39;: &#39;Horror|Thriller&#39;, &#39;Year&#39;: 1960, &#39;RatingCount&#39;: 1263.0, &#39;AvgRating&#39;: 4.218527315914489}
+Movie: {&#39;MovieID&#39;: 2710, &#39;Title&#39;: &#39;Blair Witch Project, The &#39;, &#39;Genre&#39;: &#39;Horror&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 1237.0, &#39;AvgRating&#39;: 3.0315278900565885}
+
+
+Genre: Musical
+Movie: {&#39;MovieID&#39;: 919, &#39;Title&#39;: &#39;Wizard of Oz, The &#39;, &#39;Genre&#39;: &quot;Adventure|Children&#39;s|Drama|Musical&quot;, &#39;Year&#39;: 1939, &#39;RatingCount&#39;: 1718.0, &#39;AvgRating&#39;: 4.247962747380675}
+Movie: {&#39;MovieID&#39;: 588, &#39;Title&#39;: &#39;Aladdin &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Comedy|Musical&quot;, &#39;Year&#39;: 1992, &#39;RatingCount&#39;: 1351.0, &#39;AvgRating&#39;: 3.788304959289415}
+Movie: {&#39;MovieID&#39;: 1220, &#39;Title&#39;: &#39;Blues Brothers, The &#39;, &#39;Genre&#39;: &#39;Action|Comedy|Musical&#39;, &#39;Year&#39;: 1980, &#39;RatingCount&#39;: 1341.0, &#39;AvgRating&#39;: 3.9395973154362416}
+Movie: {&#39;MovieID&#39;: 2657, &#39;Title&#39;: &#39;Rocky Horror Picture Show, The &#39;, &#39;Genre&#39;: &#39;Comedy|Horror|Musical|Sci-Fi&#39;, &#39;Year&#39;: 1975, &#39;RatingCount&#39;: 1233.0, &#39;AvgRating&#39;: 3.291159772911598}
+Movie: {&#39;MovieID&#39;: 364, &#39;Title&#39;: &#39;Lion King, The &#39;, &#39;Genre&#39;: &quot;Animation|Children&#39;s|Musical&quot;, &#39;Year&#39;: 1994, &#39;RatingCount&#39;: 1121.0, &#39;AvgRating&#39;: 3.8608385370205176}
+
+
+Genre: Mystery
+Movie: {&#39;MovieID&#39;: 1617, &#39;Title&#39;: &#39;L.A. Confidential &#39;, &#39;Genre&#39;: &#39;Crime|Film-Noir|Mystery|Thriller&#39;, &#39;Year&#39;: 1997, &#39;RatingCount&#39;: 2288.0, &#39;AvgRating&#39;: 4.219405594405594}
+Movie: {&#39;MovieID&#39;: 924, &#39;Title&#39;: &#39;2001: A Space Odyssey &#39;, &#39;Genre&#39;: &#39;Drama|Mystery|Sci-Fi|Thriller&#39;, &#39;Year&#39;: 1968, &#39;RatingCount&#39;: 1716.0, &#39;AvgRating&#39;: 4.068764568764569}
+Movie: {&#39;MovieID&#39;: 648, &#39;Title&#39;: &#39;Mission: Impossible &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Mystery&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 1527.0, &#39;AvgRating&#39;: 3.432874918140144}
+Movie: {&#39;MovieID&#39;: 3176, &#39;Title&#39;: &#39;Talented Mr. Ripley, The &#39;, &#39;Genre&#39;: &#39;Drama|Mystery|Thriller&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 1331.0, &#39;AvgRating&#39;: 3.503380916604057}
+Movie: {&#39;MovieID&#39;: 1252, &#39;Title&#39;: &#39;Chinatown &#39;, &#39;Genre&#39;: &#39;Film-Noir|Mystery|Thriller&#39;, &#39;Year&#39;: 1974, &#39;RatingCount&#39;: 1185.0, &#39;AvgRating&#39;: 4.339240506329114}
+
+
+Genre: Romance
+Movie: {&#39;MovieID&#39;: 1210, &#39;Title&#39;: &#39;Star Wars: Episode VI - Return of the Jedi &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Romance|Sci-Fi|War&#39;, &#39;Year&#39;: 1983, &#39;RatingCount&#39;: 2883.0, &#39;AvgRating&#39;: 4.022892819979188}
+Movie: {&#39;MovieID&#39;: 2396, &#39;Title&#39;: &#39;Shakespeare in Love &#39;, &#39;Genre&#39;: &#39;Comedy|Romance&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 2369.0, &#39;AvgRating&#39;: 4.127479949345715}
+Movie: {&#39;MovieID&#39;: 1197, &#39;Title&#39;: &#39;Princess Bride, The &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Comedy|Romance&#39;, &#39;Year&#39;: 1987, &#39;RatingCount&#39;: 2318.0, &#39;AvgRating&#39;: 4.3037100949094045}
+Movie: {&#39;MovieID&#39;: 1265, &#39;Title&#39;: &#39;Groundhog Day &#39;, &#39;Genre&#39;: &#39;Comedy|Romance&#39;, &#39;Year&#39;: 1993, &#39;RatingCount&#39;: 2278.0, &#39;AvgRating&#39;: 3.953028972783143}
+Movie: {&#39;MovieID&#39;: 356, &#39;Title&#39;: &#39;Forrest Gump &#39;, &#39;Genre&#39;: &#39;Comedy|Romance|War&#39;, &#39;Year&#39;: 1994, &#39;RatingCount&#39;: 2194.0, &#39;AvgRating&#39;: 4.087967183226983}
+
+
+Genre: Sci-Fi
+Movie: {&#39;MovieID&#39;: 260, &#39;Title&#39;: &#39;Star Wars: Episode IV - A New Hope &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Fantasy|Sci-Fi&#39;, &#39;Year&#39;: 1977, &#39;RatingCount&#39;: 2991.0, &#39;AvgRating&#39;: 4.453694416583082}
+Movie: {&#39;MovieID&#39;: 1196, &#39;Title&#39;: &#39;Star Wars: Episode V - The Empire Strikes Back &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Drama|Sci-Fi|War&#39;, &#39;Year&#39;: 1980, &#39;RatingCount&#39;: 2990.0, &#39;AvgRating&#39;: 4.292976588628763}
+Movie: {&#39;MovieID&#39;: 1210, &#39;Title&#39;: &#39;Star Wars: Episode VI - Return of the Jedi &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Romance|Sci-Fi|War&#39;, &#39;Year&#39;: 1983, &#39;RatingCount&#39;: 2883.0, &#39;AvgRating&#39;: 4.022892819979188}
+Movie: {&#39;MovieID&#39;: 480, &#39;Title&#39;: &#39;Jurassic Park &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Sci-Fi&#39;, &#39;Year&#39;: 1993, &#39;RatingCount&#39;: 2672.0, &#39;AvgRating&#39;: 3.7638473053892216}
+Movie: {&#39;MovieID&#39;: 589, &#39;Title&#39;: &#39;Terminator 2: Judgment Day &#39;, &#39;Genre&#39;: &#39;Action|Sci-Fi|Thriller&#39;, &#39;Year&#39;: 1991, &#39;RatingCount&#39;: 2649.0, &#39;AvgRating&#39;: 4.058512646281616}
+
+
+Genre: Thriller
+Movie: {&#39;MovieID&#39;: 589, &#39;Title&#39;: &#39;Terminator 2: Judgment Day &#39;, &#39;Genre&#39;: &#39;Action|Sci-Fi|Thriller&#39;, &#39;Year&#39;: 1991, &#39;RatingCount&#39;: 2649.0, &#39;AvgRating&#39;: 4.058512646281616}
+Movie: {&#39;MovieID&#39;: 2571, &#39;Title&#39;: &#39;Matrix, The &#39;, &#39;Genre&#39;: &#39;Action|Sci-Fi|Thriller&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 2590.0, &#39;AvgRating&#39;: 4.315830115830116}
+Movie: {&#39;MovieID&#39;: 593, &#39;Title&#39;: &#39;Silence of the Lambs, The &#39;, &#39;Genre&#39;: &#39;Drama|Thriller&#39;, &#39;Year&#39;: 1991, &#39;RatingCount&#39;: 2578.0, &#39;AvgRating&#39;: 4.3518231186966645}
+Movie: {&#39;MovieID&#39;: 608, &#39;Title&#39;: &#39;Fargo &#39;, &#39;Genre&#39;: &#39;Crime|Drama|Thriller&#39;, &#39;Year&#39;: 1996, &#39;RatingCount&#39;: 2513.0, &#39;AvgRating&#39;: 4.254675686430561}
+Movie: {&#39;MovieID&#39;: 2762, &#39;Title&#39;: &#39;Sixth Sense, The &#39;, &#39;Genre&#39;: &#39;Thriller&#39;, &#39;Year&#39;: 1999, &#39;RatingCount&#39;: 2459.0, &#39;AvgRating&#39;: 4.406262708418057}
+
+
+Genre: War
+Movie: {&#39;MovieID&#39;: 1196, &#39;Title&#39;: &#39;Star Wars: Episode V - The Empire Strikes Back &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Drama|Sci-Fi|War&#39;, &#39;Year&#39;: 1980, &#39;RatingCount&#39;: 2990.0, &#39;AvgRating&#39;: 4.292976588628763}
+Movie: {&#39;MovieID&#39;: 1210, &#39;Title&#39;: &#39;Star Wars: Episode VI - Return of the Jedi &#39;, &#39;Genre&#39;: &#39;Action|Adventure|Romance|Sci-Fi|War&#39;, &#39;Year&#39;: 1983, &#39;RatingCount&#39;: 2883.0, &#39;AvgRating&#39;: 4.022892819979188}
+Movie: {&#39;MovieID&#39;: 2028, &#39;Title&#39;: &#39;Saving Private Ryan &#39;, &#39;Genre&#39;: &#39;Action|Drama|War&#39;, &#39;Year&#39;: 1998, &#39;RatingCount&#39;: 2653.0, &#39;AvgRating&#39;: 4.337353938937053}
+Movie: {&#39;MovieID&#39;: 110, &#39;Title&#39;: &#39;Braveheart &#39;, &#39;Genre&#39;: &#39;Action|Drama|War&#39;, &#39;Year&#39;: 1995, &#39;RatingCount&#39;: 2443.0, &#39;AvgRating&#39;: 4.234957020057307}
+Movie: {&#39;MovieID&#39;: 527, &#39;Title&#39;: &quot;Schindler&#39;s List &quot;, &#39;Genre&#39;: &#39;Drama|War&#39;, &#39;Year&#39;: 1993, &#39;RatingCount&#39;: 2304.0, &#39;AvgRating&#39;: 4.510416666666667}
+
+
+Genre: Western
+Movie: {&#39;MovieID&#39;: 590, &#39;Title&#39;: &#39;Dances with Wolves &#39;, &#39;Genre&#39;: &#39;Adventure|Drama|Western&#39;, &#39;Year&#39;: 1990, &#39;RatingCount&#39;: 1451.0, &#39;AvgRating&#39;: 3.9152308752584424}
+Movie: {&#39;MovieID&#39;: 1304, &#39;Title&#39;: &#39;Butch Cassidy and the Sundance Kid &#39;, &#39;Genre&#39;: &#39;Action|Comedy|Western&#39;, &#39;Year&#39;: 1969, &#39;RatingCount&#39;: 1419.0, &#39;AvgRating&#39;: 4.215644820295983}
+Movie: {&#39;MovieID&#39;: 2012, &#39;Title&#39;: &#39;Back to the Future Part III &#39;, &#39;Genre&#39;: &#39;Comedy|Sci-Fi|Western&#39;, &#39;Year&#39;: 1990, &#39;RatingCount&#39;: 1148.0, &#39;AvgRating&#39;: 3.2421602787456445}
+Movie: {&#39;MovieID&#39;: 3671, &#39;Title&#39;: &#39;Blazing Saddles &#39;, &#39;Genre&#39;: &#39;Comedy|Western&#39;, &#39;Year&#39;: 1974, &#39;RatingCount&#39;: 1119.0, &#39;AvgRating&#39;: 4.047363717605005}
+Movie: {&#39;MovieID&#39;: 1266, &#39;Title&#39;: &#39;Unforgiven &#39;, &#39;Genre&#39;: &#39;Western&#39;, &#39;Year&#39;: 1992, &#39;RatingCount&#39;: 997.0, &#39;AvgRating&#39;: 4.0902708124373115}
+
+
+
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="container-fluid main-container">
+<div id="header">
+<h1 class="title toc-ignore" id="ubcf-and-ibcf">Project 4</h1>
+<h4 class="date" id="section">2022-12-12</h4>
+</div>
+<section id="ubcf" class="level2">
+<h2>UBCF</h2>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Initial Code</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recommenderlab)</span></code></pre></div>
+<pre><code>## Warning: package &#39;recommenderlab&#39; was built under R version 4.2.2</code></pre>
+<pre><code>## Loading required package: Matrix</code></pre>
+<pre><code>## Loading required package: arules</code></pre>
+<pre><code>## Warning: package &#39;arules&#39; was built under R version 4.2.2</code></pre>
+<pre><code>## 
+## Attaching package: &#39;arules&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     abbreviate, write</code></pre>
+<pre><code>## Loading required package: proxy</code></pre>
+<pre><code>## Warning: package &#39;proxy&#39; was built under R version 4.2.2</code></pre>
+<pre><code>## 
+## Attaching package: &#39;proxy&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:Matrix&#39;:
+## 
+##     as.matrix</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     as.dist, dist</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     as.matrix</code></pre>
+<pre><code>## Loading required package: registry</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;registry&#39;:
+##   method               from 
+##   print.registry_field proxy
+##   print.registry_entry proxy</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>myurl <span class="ot">=</span> <span class="st">&quot;https://liangfgithub.github.io/MovieData/&quot;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(myurl, <span class="st">&#39;ratings.dat?raw=true&#39;</span>), </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sep =</span> <span class="st">&#39;:&#39;</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">colClasses =</span> <span class="fu">c</span>(<span class="st">&#39;integer&#39;</span>, <span class="st">&#39;NULL&#39;</span>), </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ratings) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;UserID&#39;</span>, <span class="st">&#39;MovieID&#39;</span>, <span class="st">&#39;Rating&#39;</span>, <span class="st">&#39;Timestamp&#39;</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>i <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&#39;u&#39;</span>, ratings<span class="sc">$</span>UserID)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>j <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&#39;m&#39;</span>, ratings<span class="sc">$</span>MovieID)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> ratings<span class="sc">$</span>Rating</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">=</span> <span class="fu">data.frame</span>(i, j, x, <span class="at">stringsAsFactors =</span> T)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>Rmat <span class="ot">=</span> <span class="fu">sparseMatrix</span>(<span class="fu">as.integer</span>(tmp<span class="sc">$</span>i), <span class="fu">as.integer</span>(tmp<span class="sc">$</span>j), <span class="at">x =</span> tmp<span class="sc">$</span>x)</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(Rmat) <span class="ot">=</span> <span class="fu">levels</span>(tmp<span class="sc">$</span>i)</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Rmat) <span class="ot">=</span> <span class="fu">levels</span>(tmp<span class="sc">$</span>j)</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>Rmat <span class="ot">=</span> <span class="fu">new</span>(<span class="st">&#39;realRatingMatrix&#39;</span>, <span class="at">data =</span> Rmat)</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>train <span class="ot">=</span> Rmat[<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, ]</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>test <span class="ot">=</span> Rmat[<span class="dv">501</span>, ]</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="co">#normalize</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>newdata <span class="ot">=</span> <span class="fu">as</span>(test, <span class="st">&quot;matrix&quot;</span>) </span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">as</span>(train, <span class="st">&quot;matrix&quot;</span>) </span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>user.means <span class="ot">=</span> <span class="fu">rowMeans</span>(data, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> data <span class="sc">-</span> user.means </span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>newuser.means <span class="ot">=</span> <span class="fu">rowMeans</span>(newdata, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>newdata <span class="ot">=</span> newdata <span class="sc">-</span> newuser.means </span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a><span class="co">#Cosine Similarity</span></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">dim</span>(data)[<span class="dv">1</span>]) </span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sim)) { </span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>  tmp.y <span class="ot">=</span> <span class="fu">as.vector</span>(newdata)</span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>  ind.y <span class="ot">=</span> <span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(tmp.y))</span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>  tmp.x <span class="ot">=</span> data[i, ] </span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a>  ind.x <span class="ot">=</span> <span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(tmp.x)) </span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>  ind  <span class="ot">=</span> <span class="fu">intersect</span>(ind.x, ind.y)</span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(ind) <span class="sc">&gt;</span> <span class="dv">0</span>){ </span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>    tmp.x <span class="ot">=</span> tmp.x[ind]</span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a>    tmp.y <span class="ot">=</span> tmp.y[ind] </span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a>    sim[i] <span class="ot">=</span> <span class="fu">sum</span>(tmp.x <span class="sc">*</span> tmp.y) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(tmp.x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">*</span> <span class="fu">sum</span>(tmp.y<span class="sc">^</span><span class="dv">2</span>)) </span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a>    } </span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a>  } </span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">=</span> (<span class="dv">1</span> <span class="sc">+</span> sim)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a><span class="do">##################</span></span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a>sort <span class="ot">=</span> <span class="fu">tail</span>(<span class="fu">sort</span>(sim), <span class="dv">20</span>)</span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a>val <span class="ot">=</span> sort[<span class="dv">1</span>]</span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a>sim[sim <span class="sc">&lt;</span> val] <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-51"><a href="#cb29-51" aria-hidden="true" tabindex="-1"></a>mypred <span class="ot">=</span> <span class="fu">colSums</span>(data <span class="sc">*</span> sim, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">colSums</span>((<span class="sc">!</span><span class="fu">is.na</span>(data)) <span class="sc">*</span> sim)</span>
+<span id="cb29-52"><a href="#cb29-52" aria-hidden="true" tabindex="-1"></a>mypred <span class="ot">=</span> mypred <span class="sc">+</span> newuser.means</span>
+<span id="cb29-53"><a href="#cb29-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-54"><a href="#cb29-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-55"><a href="#cb29-55" aria-hidden="true" tabindex="-1"></a>mypred[<span class="sc">!</span><span class="fu">is.na</span>(newdata)] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb29-56"><a href="#cb29-56" aria-hidden="true" tabindex="-1"></a>mypred[<span class="fu">is.infinite</span>(mypred)] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb29-57"><a href="#cb29-57" aria-hidden="true" tabindex="-1"></a>mypred[<span class="fu">is.nan</span>(mypred)]<span class="ot">=</span><span class="cn">NA</span></span>
+<span id="cb29-58"><a href="#cb29-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-59"><a href="#cb29-59" aria-hidden="true" tabindex="-1"></a><span class="co"># UBCF</span></span>
+<span id="cb29-60"><a href="#cb29-60" aria-hidden="true" tabindex="-1"></a>recommender.UBCF <span class="ot">&lt;-</span> <span class="fu">Recommender</span>(train, <span class="at">method =</span> <span class="st">&quot;UBCF&quot;</span>,</span>
+<span id="cb29-61"><a href="#cb29-61" aria-hidden="true" tabindex="-1"></a>                                <span class="at">parameter =</span> <span class="fu">list</span>(<span class="at">normalize =</span> <span class="st">&#39;center&#39;</span>, </span>
+<span id="cb29-62"><a href="#cb29-62" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">method =</span> <span class="st">&#39;Cosine&#39;</span>, </span>
+<span id="cb29-63"><a href="#cb29-63" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">nn =</span> <span class="dv">20</span>))</span>
+<span id="cb29-64"><a href="#cb29-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-65"><a href="#cb29-65" aria-hidden="true" tabindex="-1"></a>p.UBCF <span class="ot">&lt;-</span> <span class="fu">predict</span>(recommender.UBCF, test, <span class="at">type=</span><span class="st">&quot;ratings&quot;</span>)</span>
+<span id="cb29-66"><a href="#cb29-66" aria-hidden="true" tabindex="-1"></a>p.UBCF <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as</span>(p.UBCF, <span class="st">&quot;matrix&quot;</span>))</span>
+<span id="cb29-67"><a href="#cb29-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-68"><a href="#cb29-68" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(p.UBCF) <span class="sc">!=</span> <span class="fu">is.na</span>(mypred)) <span class="do">### should be zero</span></span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(<span class="fu">abs</span>(p.UBCF <span class="sc">-</span> mypred), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)  <span class="do">### should be less than 1e-06 </span></span></code></pre></div>
+<pre><code>## [1] 4.953572e-07</code></pre>
+</section>
+<section id="ibcf" class="level2">
+<h2>IBCF</h2>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Initial Code</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recommenderlab)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>myurl <span class="ot">=</span> <span class="st">&quot;https://liangfgithub.github.io/MovieData/&quot;</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>ratings <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(myurl, <span class="st">&#39;ratings.dat?raw=true&#39;</span>), </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sep =</span> <span class="st">&#39;:&#39;</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">colClasses =</span> <span class="fu">c</span>(<span class="st">&#39;integer&#39;</span>, <span class="st">&#39;NULL&#39;</span>), </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ratings) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;UserID&#39;</span>, <span class="st">&#39;MovieID&#39;</span>, <span class="st">&#39;Rating&#39;</span>, <span class="st">&#39;Timestamp&#39;</span>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>i <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&#39;u&#39;</span>, ratings<span class="sc">$</span>UserID)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>j <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&#39;m&#39;</span>, ratings<span class="sc">$</span>MovieID)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> ratings<span class="sc">$</span>Rating</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">=</span> <span class="fu">data.frame</span>(i, j, x, <span class="at">stringsAsFactors =</span> T)</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>Rmat <span class="ot">=</span> <span class="fu">sparseMatrix</span>(<span class="fu">as.integer</span>(tmp<span class="sc">$</span>i), <span class="fu">as.integer</span>(tmp<span class="sc">$</span>j), <span class="at">x =</span> tmp<span class="sc">$</span>x)</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(Rmat) <span class="ot">=</span> <span class="fu">levels</span>(tmp<span class="sc">$</span>i)</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Rmat) <span class="ot">=</span> <span class="fu">levels</span>(tmp<span class="sc">$</span>j)</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>Rmat <span class="ot">=</span> <span class="fu">new</span>(<span class="st">&#39;realRatingMatrix&#39;</span>, <span class="at">data =</span> Rmat)</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>train <span class="ot">=</span> Rmat[<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, ]</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>test <span class="ot">=</span> Rmat[<span class="dv">501</span>, ]</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="co">#normalize</span></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>newdata <span class="ot">=</span> <span class="fu">as</span>(test, <span class="st">&quot;matrix&quot;</span>) </span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">as</span>(train, <span class="st">&quot;matrix&quot;</span>) </span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>user.means <span class="ot">=</span> <span class="fu">rowMeans</span>(data, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> data <span class="sc">-</span> user.means </span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a><span class="co">#Cosine Similarity</span></span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">=</span> proxy<span class="sc">::</span><span class="fu">simil</span>(data, <span class="at">method =</span> <span class="st">&quot;cosine&quot;</span>, <span class="at">by_rows =</span> <span class="cn">FALSE</span>) </span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">=</span> (<span class="dv">1</span> <span class="sc">+</span> sim)<span class="sc">/</span><span class="dv">2</span> </span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a>sim_mat <span class="ot">=</span> <span class="fu">as.matrix</span>(sim)</span>
+<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(data)){</span>
+<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a>  ord1 <span class="ot">=</span> <span class="fu">order</span>(sim_mat[i, ], <span class="at">decreasing =</span> <span class="cn">FALSE</span>, <span class="at">na.last =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a>  ord <span class="ot">=</span> <span class="fu">tail</span>(ord1, <span class="dv">30</span>)</span>
+<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a>  sim_mat[i, <span class="sc">-</span>ord] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb33-37"><a href="#cb33-37" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-38"><a href="#cb33-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-39"><a href="#cb33-39" aria-hidden="true" tabindex="-1"></a><span class="do">##################</span></span>
+<span id="cb33-40"><a href="#cb33-40" aria-hidden="true" tabindex="-1"></a>nonNA <span class="ot">=</span> <span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(newdata))</span>
+<span id="cb33-41"><a href="#cb33-41" aria-hidden="true" tabindex="-1"></a>ent <span class="ot">=</span> <span class="fu">as.vector</span>(newdata[nonNA])</span>
+<span id="cb33-42"><a href="#cb33-42" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">=</span> <span class="fu">t</span>(sim_mat[, nonNA])</span>
+<span id="cb33-43"><a href="#cb33-43" aria-hidden="true" tabindex="-1"></a>mypred <span class="ot">=</span> <span class="fu">colSums</span>(sim <span class="sc">*</span> ent, <span class="at">na.rm =</span> T)<span class="sc">/</span><span class="fu">rowSums</span>(sim_mat[, nonNA], <span class="at">na.rm =</span> T)</span>
+<span id="cb33-44"><a href="#cb33-44" aria-hidden="true" tabindex="-1"></a>mypred <span class="ot">=</span> <span class="fu">as</span>(mypred, <span class="st">&quot;matrix&quot;</span>)</span>
+<span id="cb33-45"><a href="#cb33-45" aria-hidden="true" tabindex="-1"></a>mypred[<span class="sc">!</span><span class="fu">is.na</span>(newdata)] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb33-46"><a href="#cb33-46" aria-hidden="true" tabindex="-1"></a>mypred[<span class="fu">is.infinite</span>(mypred)] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb33-47"><a href="#cb33-47" aria-hidden="true" tabindex="-1"></a>mypred[<span class="fu">is.nan</span>(mypred)]<span class="ot">=</span><span class="cn">NA</span></span>
+<span id="cb33-48"><a href="#cb33-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-49"><a href="#cb33-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-50"><a href="#cb33-50" aria-hidden="true" tabindex="-1"></a><span class="co"># IBCF</span></span>
+<span id="cb33-51"><a href="#cb33-51" aria-hidden="true" tabindex="-1"></a>recommender.IBCF <span class="ot">&lt;-</span> <span class="fu">Recommender</span>(train, <span class="at">method =</span> <span class="st">&quot;IBCF&quot;</span>,</span>
+<span id="cb33-52"><a href="#cb33-52" aria-hidden="true" tabindex="-1"></a>                                <span class="at">parameter =</span> <span class="fu">list</span>(<span class="at">normalize =</span> <span class="st">&#39;center&#39;</span>, </span>
+<span id="cb33-53"><a href="#cb33-53" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">method =</span> <span class="st">&#39;Cosine&#39;</span>, </span>
+<span id="cb33-54"><a href="#cb33-54" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">k =</span> <span class="dv">30</span>))</span>
+<span id="cb33-55"><a href="#cb33-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-56"><a href="#cb33-56" aria-hidden="true" tabindex="-1"></a>p.IBCF <span class="ot">&lt;-</span> <span class="fu">predict</span>(recommender.IBCF, test, <span class="at">type=</span><span class="st">&quot;ratings&quot;</span>)</span>
+<span id="cb33-57"><a href="#cb33-57" aria-hidden="true" tabindex="-1"></a>p.IBCF <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as</span>(p.IBCF, <span class="st">&quot;matrix&quot;</span>))</span>
+<span id="cb33-58"><a href="#cb33-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-59"><a href="#cb33-59" aria-hidden="true" tabindex="-1"></a><span class="do">## first output: should be less than 10</span></span>
+<span id="cb33-60"><a href="#cb33-60" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(p.IBCF) <span class="sc">!=</span> <span class="fu">is.na</span>(mypred))  </span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">## second output: should be less than 10%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>mydiff <span class="ot">=</span> <span class="fu">abs</span>(p.IBCF <span class="sc">-</span> mypred)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(mydiff[<span class="sc">!</span><span class="fu">is.na</span>(mydiff)] <span class="sc">&gt;</span> <span class="fl">1e-6</span>) <span class="sc">/</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(mydiff)) </span></code></pre></div>
+<pre><code>## [1] 0.08243052</code></pre>
+</section>
+</div>
+</body>
+</html>
